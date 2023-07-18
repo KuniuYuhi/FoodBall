@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UniRx;
+using System;
 
 public class AI : Actor
 {
@@ -12,21 +14,34 @@ public class AI : Actor
     [SerializeField,Header("ターゲットの座標")]
     Vector3 m_targetposition = Vector3.zero;
 
+    [Header("検索するタイミングの秒数")]
+    public int m_findTiming = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         m_navMesh = GetComponent<NavMeshAgent>();
 
-        FindFoods();
+        //食べ物を検索するタイミングを設定
+        FindTiming();
 
-        DicideTarget();
+        //FindFoods();
+        //DicideTarget();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    /// <summary>
+    /// 一定間隔ごとに食べ物を検索し、ターゲットを設定する
+    /// </summary>
+    void FindTiming()
+    {
+        Observable.Interval(TimeSpan.FromSeconds(m_findTiming))
+          .Subscribe(_ => DicideTarget()).AddTo(this);
     }
 
     /// <summary>
@@ -40,7 +55,7 @@ public class AI : Actor
     void DicideTarget()
     {
         //食べ物を検索
-        //FindFoods();
+        FindFoods();
         //ターゲットの座標を取得
         m_targetposition = DecideNearPosition();
         //ターゲットを設定
@@ -79,7 +94,7 @@ public class AI : Actor
                 nearPosNumber = amount;
             }
         }
-
+        //一番近かった食べ物の座標を返す
         return m_food[nearPosNumber].transform.position;
 
     }
