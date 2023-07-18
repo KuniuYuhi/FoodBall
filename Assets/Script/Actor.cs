@@ -10,6 +10,13 @@ public class Actor : MonoBehaviour
     [SerializeField, Header("自身のサイズ")]
     Vector3 size = Vector3.one;
 
+    [SerializeField, Header("拡大する量")]
+    const float m_scaleUp = 1.01f;
+
+    private void Start()
+    {
+
+    }
 
 
     /// <summary>
@@ -26,7 +33,7 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected void SizeUp()
     {
-
+        transform.localScale *= m_scaleUp;
     }
 
     /// <summary>
@@ -37,6 +44,21 @@ public class Actor : MonoBehaviour
 
     }
 
+    protected void OnTriggerEnter(Collider other)
+    {
+        //もし自身と衝突したらオブジェクトのタグが食べ物だったら
+        if(other.CompareTag("Food"))
+        {
+            Food m_food=other.GetComponent<Food>();
+            //食べた量を加算する
+            eatFoods+= m_food.GetPoint();
 
+            //モデルを大きくする
+            SizeUp();
+
+            //食べ物を消す
+            Destroy(other.gameObject);
+        }
+    }
 
 }
