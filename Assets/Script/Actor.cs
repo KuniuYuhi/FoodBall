@@ -12,10 +12,19 @@ public class Actor : MonoBehaviour
 
     [SerializeField, Header("拡大する量")]
     const float m_scaleUp = 1.01f;
+    //キャッシュ
+    protected Rigidbody m_rigidbody;
+    protected GameObject m_gameCameraObj;
+
+
+    virtual protected void GetStartInformation(){}
 
     private void Start()
     {
-
+        //必要な情報を取得
+        m_rigidbody = GetComponent<Rigidbody>();
+        m_gameCameraObj = Camera.main.gameObject;
+        GetStartInformation();
     }
 
 
@@ -43,6 +52,7 @@ public class Actor : MonoBehaviour
     {
 
     }
+
 
     protected void OnTriggerEnter(Collider other)
     {
