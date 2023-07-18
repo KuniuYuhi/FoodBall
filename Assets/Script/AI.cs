@@ -20,6 +20,10 @@ public class AI : Actor
     //評価値
     int[] m_eval;
 
+    int nearPosNumber = 0;
+
+    //List<int>[] eval = new List<int>();
+
     //nearPosNumber用意する
 
     // Start is called before the first frame update
@@ -63,9 +67,13 @@ public class AI : Actor
             return false;
         }
 
+        
+
         //食べ物の数だけ配列を用意する
         int size = m_food.Length;
         m_eval = new int[size];
+
+        Debug.Log(m_eval.Length);
 
         //食べ物があった
         return true;
@@ -108,7 +116,8 @@ public class AI : Actor
         //ベクトルを長さに変換
         float nearLength = diff.magnitude;
 
-        int nearPosNumber = 0;
+        //一番近い食べ物の配列番号
+        nearPosNumber = 0;
 
         for(int amount=1;amount<m_food.Length;amount++)
         {
@@ -124,16 +133,22 @@ public class AI : Actor
             //もし自身から最も近いなら
             if (nearLength> Length)
             {
-                //まず一番近い食べ物の評価値をたす
-                m_eval[amount] += m_eval[nearPosNumber];
+                //既に一番近い食べ物の評価値が入っているなら
+                if(m_eval[nearPosNumber]>0)
+                {
+                    //まず一番近い食べ物の評価値をたす
+                    m_eval[amount] += m_eval[nearPosNumber];
+                }
+
+                //一番近い食べ物の評価値を上げていく
+                m_eval[amount] += 100;
 
                 //一番近い食べ物を入れ替える
                 nearLength = Length;
                 
                 nearPosNumber = amount;
 
-                //一番近い食べ物の評価値を上げていく
-                m_eval[nearPosNumber] += 100;
+                
             }
             else
             {
@@ -142,10 +157,7 @@ public class AI : Actor
             }
         }
 
-
-        //一番近かった食べ物の座標を返す
-        //評価値を上げる
-        m_eval[nearPosNumber] = 100;
+        Debug.Log(m_eval[nearPosNumber]);
 
         return m_food[nearPosNumber].transform.position;
     }
