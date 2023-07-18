@@ -34,6 +34,12 @@ public class Player : Actor
 
     private void FixedUpdate()
     {
+        Move();
+    }
+
+    //ˆÚ“®ˆ—
+    private void Move()
+    {
         Vector3 m_playerMove = Vector3.zero;
         Vector3 m_stickL = Vector3.zero;
         m_stickL.z = Input.GetAxis("Vertical");
