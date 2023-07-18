@@ -344,6 +344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1296509457}
+  - component: {fileID: 1296509458}
   - component: {fileID: 1296509456}
   m_Layer: 0
   m_Name: Game
@@ -371,7 +372,7 @@ MonoBehaviour:
   - {fileID: 171155278159275115, guid: dc2faaba8fa42a34a8f4a9b13c23f173, type: 3}
   m_foodDefNum: 30
   m_respawnNum: 10
-  m_foodRadius: 50
+  m_foodRadius: 100
   m_rayOriginY: 20
 --- !u!4 &1296509457
 Transform:
@@ -388,6 +389,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1296509458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296509455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff85806f92bbb1f4fa21897ccabf5ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gameState: 1
 --- !u!1 &1714627430
 GameObject:
   m_ObjectHideFlags: 0
