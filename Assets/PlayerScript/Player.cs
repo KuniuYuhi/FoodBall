@@ -6,24 +6,23 @@ public class Player : Actor
 {
     //パラメータ
     //プレイヤーの移動速度
-    float m_speed = 0.0f;
+    [SerializeField,Header("プレイヤーの移動速度")]
+    float m_moveSpeed = 0.0f;
 
     //キャッシュ
     Rigidbody m_rigidbody;
     GameObject m_gameCameraObj;
 
     //プレイヤーの移動速度設定
-    [SerializeField]
-    void SetMoveSpeed(float speed)
+    public void SetMoveSpeed(float speed)
     {
-        m_speed = speed;
+        m_moveSpeed = speed;
     }
 
     //プレイヤーの移動速度の取得
-    [SerializeField]
-    float GetMoveSpeed()
+    public float GetMoveSpeed()
     {
-        return m_speed;
+        return m_moveSpeed;
     }
     // Start is called before the first frame update
     void Start()
@@ -49,12 +48,11 @@ public class Player : Actor
         m_forward *= m_stickL.z;
 
         //移動速度に上記で計算したベクトルを加算する
-        Player
-    }
+        m_playerMove += m_right + m_forward;
 
-    // Update is called once per frame
-    void Update()
-    {
-       if()
+        //プレイヤーの速度を設定することで移動できる
+        m_playerMove = (m_playerMove * m_moveSpeed * Time.deltaTime);
+        m_playerMove.y = m_rigidbody.velocity.y;
+        m_rigidbody.velocity = m_playerMove;
     }
 }
