@@ -13,6 +13,11 @@ public class Actor : MonoBehaviour
     [SerializeField, Header("拡大する量")]
     const float m_scaleUp = 1.01f;
 
+    private void Start()
+    {
+
+    }
+
 
     /// <summary>
     /// 食べた食べ物の数を返す
@@ -44,8 +49,9 @@ public class Actor : MonoBehaviour
         //もし自身と衝突したらオブジェクトのタグが食べ物だったら
         if(other.CompareTag("Food"))
         {
+            Food m_food=other.GetComponent<Food>();
             //食べた量を加算する
-            eatFoods++;
+            eatFoods+= m_food.GetPoint();
 
             //モデルを大きくする
             SizeUp();
