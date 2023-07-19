@@ -87,6 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eatFoods: 0
   size: {x: 1, y: 1, z: 1}
+  m_enAiCharacter: 1
   m_moveSpeed: 20
 --- !u!1 &8155117197482826252
 GameObject:

@@ -1484,4 +1484,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eatFoods: 0
   size: {x: 1, y: 1, z: 1}
+  m_enAiCharacter: 2
   m_moveSpeed: 20
