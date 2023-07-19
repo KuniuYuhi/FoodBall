@@ -15,8 +15,8 @@ public class Actor : MonoBehaviour
     //キャッシュ
     protected Rigidbody m_rigidbody;
     protected GameObject m_gameCameraObj;
-
-
+    //ジャンプ可能かどうか
+    protected bool m_isJumpFlag = true;
     virtual protected void GetStartInformation(){}
 
     private void Start()
@@ -77,6 +77,37 @@ public class Actor : MonoBehaviour
 
             //食べ物を消す
             Destroy(other.gameObject);
+        }
+
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            m_isJumpFlag = true;
+            return;
+        }
+
+        if (collision.gameObject.CompareTag("JumpGround"))
+        {
+            m_isJumpFlag = true;
+            return;
+        }        
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            m_isJumpFlag = false;
+            return;
+        }
+
+        if (collision.gameObject.CompareTag("JumpGround"))
+        {
+            m_isJumpFlag = false;
+            return;
         }
     }
 
