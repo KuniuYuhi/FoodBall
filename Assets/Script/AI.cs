@@ -7,176 +7,94 @@ using System;
 
 public class AI : Actor
 {
-    NavMeshAgent m_navMesh;
+    [SerializeField, Header("移動速度")]
+    float m_moveSpeed;
 
-    GameObject[] m_food;
-
-    [SerializeField,Header("ターゲットの座標")]
-    Vector3 m_targetposition = Vector3.zero;
-
-    [Header("検索するタイミングの秒数")]
-    public int m_findTiming = 5;
-
-    //評価値
-    int[] m_eval;
-
-    int nearPosNumber = 0;
-
-    //List<int>[] eval = new List<int>();
-
-    //nearPosNumber用意する
-
-    // Start is called before the first frame update
-    void Start()
+    NavMeshAgent m_navMeshAgent;
+    public void SetNavMeshAgent(NavMeshAgent navMeshAgent)
     {
-        m_navMesh = GetComponent<NavMeshAgent>();
-
-        //食べ物を検索するタイミングを設定
-        FindTiming();
-
-        FindFoods();
-        DicideTarget();
+        m_navMeshAgent = navMeshAgent;
+    }
+    NavMeshAI m_navMeshAI;
+    public void SetNavMeshAI(NavMeshAI navMeshAI)
+    {
+        m_navMeshAI = navMeshAI;
     }
 
-    // Update is called once per frame
+    int m_nowIndex = 0;
+    public void SetNowIndex(int index)
+    {
+        m_nowIndex = index;
+    }
+
+    // 初期半径保存
+    float m_defRadius = 0.0f;
+
+    // 最初に実行
+    override protected void GetStartInformation()
+    {
+        // エージェントの大きさを保存
+        m_defRadius = m_navMeshAgent.radius;
+    }
+
     void Update()
     {
-        
+        MoveAI();
 
+        // 半径更新
+        m_navMeshAgent.radius = m_defRadius * transform.localScale.x;
     }
 
-    /// <summary>
-    /// 一定間隔ごとに食べ物を検索し、ターゲットを設定する
-    /// </summary>
-    void FindTiming()
+    //AIの移動処理
+    void MoveAI()
     {
-        Observable.Interval(TimeSpan.FromSeconds(m_findTiming))
-          .Subscribe(_ => DicideTarget()).AddTo(this);
-    }
-
-    /// <summary>
-    /// ステージ上の食べ物を検索する
-    /// </summary>
-    bool FindFoods()
-    {
-        m_food = GameObject.FindGameObjectsWithTag("Food");
-
-        //食べ物がなかったら
-        if(m_food.Length==0)
+        // 念のためエラー防止
+        if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
-            return false;
+            return;
         }
 
-        
+        Vector3 targetPosition = m_navMeshAgent.path.corners[m_nowIndex];
+        Vector3 nowPosition = transform.position;
+        targetPosition.y = 0.0f;
+        nowPosition.y = 0.0f;
 
-        //食べ物の数だけ配列を用意する
-        int size = m_food.Length;
-        m_eval = new int[size];
-
-        Debug.Log(m_eval.Length);
-
-        //食べ物があった
-        return true;
-    }
-
-    /// <summary>
-    /// ターゲットを決定
-    /// </summary>
-    void DicideTarget()
-    {
-        //食べ物を検索
-        //食べ物があったら
-        if(FindFoods()==true)
+        // 距離チェック
+        if (Vector3.Distance(nowPosition, targetPosition) < 5.0f)
         {
-            //ターゲットの座標を取得
-            m_targetposition = DecideNearPosition();
-            //ターゲットを設定
-            m_navMesh.destination = m_targetposition;
-        }
-        else
-        {
-            //ランダムに座標を取得
-            m_targetposition = DecideRamdomPosition();
-            //ターゲットを設定
-            m_navMesh.destination = m_targetposition;
-        }
-       
-    }
-
-    /// <summary>
-    /// 一番近い食べ物の座標を返す
-    /// </summary>
-    /// <returns></returns>
-    Vector3 DecideNearPosition()
-    {
-        //食べ物の座標を取得
-        Vector3 foodpos = m_food[0].transform.position;
-        //自身から食べ物に向かうベクトルを計算
-        Vector3 diff = foodpos - transform.position;
-        //ベクトルを長さに変換
-        float nearLength = diff.magnitude;
-
-        //一番近い食べ物の配列番号
-        nearPosNumber = 0;
-
-        for(int amount=1;amount<m_food.Length;amount++)
-        {
-            //食べ物の座標を取得
-            Vector3 FoodPos = m_food[amount].transform.position;
-            //自身から食べ物に向かうベクトルを計算
-            Vector3 Diff = FoodPos - transform.position;
-            //ベクトルを長さに変換
-            float Length = Diff.magnitude;
-
-            
-
-            //もし自身から最も近いなら
-            if (nearLength> Length)
+            // ついたのは最終目的地かどうか
+            if (Vector3.Distance(nowPosition, m_navMeshAI.GetTargetPosition()) < 5.0f)
             {
-                //既に一番近い食べ物の評価値が入っているなら
-                if(m_eval[nearPosNumber]>0)
-                {
-                    //まず一番近い食べ物の評価値をたす
-                    m_eval[amount] += m_eval[nearPosNumber];
-                }
+                // 最終目的地につきました！
 
-                //一番近い食べ物の評価値を上げていく
-                m_eval[amount] += 100;
-
-                //一番近い食べ物を入れ替える
-                nearLength = Length;
-                
-                nearPosNumber = amount;
-
-                
+                return;
             }
             else
             {
-                //一番近い食べ物の評価値を上げていく
-                m_eval[nearPosNumber] += 100;
+                // 目的地についたので再設定
+                m_nowIndex++;
+                // エラー防止
+                if(m_navMeshAgent.path.corners.Length < m_nowIndex)
+                {
+                    targetPosition = m_navMeshAgent.path.corners[m_nowIndex];
+                }
+                else
+                {
+                    m_nowIndex = m_navMeshAgent.path.corners.Length - 1;
+                }
             }
         }
 
-        Debug.Log(m_eval[nearPosNumber]);
+        //目的地
+        //Debug.Log(targetPosition);
 
-        return m_food[nearPosNumber].transform.position;
+        // 移動処理
+        Vector3 diff = targetPosition - transform.position;
+
+        diff = diff * m_moveSpeed * Time.deltaTime;
+        diff.y = 0.0f;
+        //Debug.Log("Move:" + diff);
+        m_rigidbody.AddForce(diff);
     }
-
-    /// <summary>
-    /// ランダムに座標を返す
-    /// </summary>
-    /// <returns></returns>
-    Vector3 DecideRamdomPosition()
-    {
-        Vector3 ramdompos = UnityEngine.Random.insideUnitSphere;
-
-        ramdompos *= 20.0f;
-
-        return ramdompos;
-    }
-
-    //一番近い食べ物より少し先にポイントが高い食べ物がある
-    //全ての食べ物に評価値
-    //近い食べ物ほど評価値が高い
 
 }

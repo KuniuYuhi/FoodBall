@@ -14,4 +14,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, Header("ゲームの状態")]
     GameState m_gameState = GameState.enGameMode_Play;
+
+    // タイマー
+    [SerializeField, Header("デフォルト制限時間（分）")]
+    float m_defLimitMinit;
+    [SerializeField, Header("デフォルト制限時間（秒）")]
+    float m_defLimitSecond;
+
+    // 現在のタイマー
+    float m_timerMinit, m_timerSecond;
+
 }
