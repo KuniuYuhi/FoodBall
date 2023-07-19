@@ -31,11 +31,11 @@ public class GameCamera : MonoBehaviour
         float Up_rot = 0.5f;
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            Up_rot = RotSpeed;
+            Up_rot = -RotSpeed;
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            Up_rot = -RotSpeed;
+            Up_rot = RotSpeed;
         }
         else
         {
@@ -56,11 +56,11 @@ public class GameCamera : MonoBehaviour
         float Left_rot;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Left_rot = RotSpeed;
+            Left_rot = -RotSpeed;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            Left_rot = -RotSpeed;
+            Left_rot = RotSpeed;
         }
         else
         {
