@@ -71,7 +71,8 @@ public class Actor : MonoBehaviour
             Food m_food=other.GetComponent<Food>();
             //êHÇ◊ÇΩó Çâ¡éZÇ∑ÇÈ
             eatFoods+= m_food.GetPoint();
-
+            m_rigidbody.mass = (1.0f + (eatFoods * 0.05f));
+            m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 2.5f);
             //ÉÇÉfÉãÇëÂÇ´Ç≠Ç∑ÇÈ
             SizeUp();
 
@@ -79,6 +80,18 @@ public class Actor : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
+        {
+            Vector3 Backlash = collision.gameObject.transform.position - transform.position;
+            Backlash.y += 50.0f;
+            
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(Backlash,ForceMode.Impulse);
+            m_rigidbody.AddForce(-Backlash,ForceMode.Impulse);
+        }
     }
 
     private void OnCollisionStay(Collision collision)
