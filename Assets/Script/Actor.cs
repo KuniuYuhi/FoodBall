@@ -11,7 +11,7 @@ public class Actor : MonoBehaviour
     Vector3 size = Vector3.one;
 
     [SerializeField, Header("拡大する量")]
-    const float m_scaleUp = 1.01f;
+    const float m_scaleUp = 1.05f;
     //キャッシュ
     protected Rigidbody m_rigidbody;
     protected GameObject m_gameCameraObj;
@@ -42,13 +42,22 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected void SizeUp()
     {
-        transform.localScale *= m_scaleUp;
+        if(transform.localScale.x<transform.localScale.x*2.0f)
+        {
+            transform.localScale *= m_scaleUp;
+        }
+        
     }
 
     /// <summary>
     /// サイズを小さくする
     /// </summary>
     protected void SizeDown()
+    {
+        transform.localScale *= m_scaleUp;
+    }
+
+    protected void isFalling()
     {
 
     }
