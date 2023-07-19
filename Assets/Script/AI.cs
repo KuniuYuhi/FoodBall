@@ -7,6 +7,17 @@ using System;
 
 public class AI : Actor
 {
+
+    enum EnAICharacter
+    {
+        enCharacter_Cat,
+        enCharacter_Duck,
+        enCharacter_Penguin
+    }
+
+    [SerializeField, Header("AIキャラクターの名前")]
+    EnAICharacter m_enAiCharacter;
+
     [SerializeField, Header("移動速度")]
     float m_moveSpeed;
 
