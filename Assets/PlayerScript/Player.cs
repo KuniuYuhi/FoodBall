@@ -87,7 +87,7 @@ public class Player : Actor
 
     private void Jump()
     {
-        if(Input.GetKeyDown("joystick button 0")&&m_isJumpFlag)
+        if(Input.GetKeyDown("joystick button 0")||Input.GetKeyDown(KeyCode.Space) &&m_isJumpFlag)
         {
             m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
         }
