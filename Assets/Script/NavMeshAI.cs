@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UniRx;
 using System;
+using System.Linq;
 
 public class NavMeshAI : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class NavMeshAI : MonoBehaviour
 
     int nearPosNumber = 0;
 
+    int m_maxEvalNumber = 0;
+
     //List<int>[] eval = new List<int>();
 
     //nearPosNumber用意する
@@ -52,8 +55,15 @@ public class NavMeshAI : MonoBehaviour
         DicideTarget();
     }
 
+    //private void FixedUpdate()
+    //{
+     
+    //}
+
     void Update()
     {
+        
+
         m_navMeshAgent.nextPosition = m_targetEnemy.transform.position;
     }
 
@@ -100,8 +110,24 @@ public class NavMeshAI : MonoBehaviour
         //食べ物があったら
         if (FindFoods() == true)
         {
+            //自身から一番近い食べ物を決める
+            DecideNearPosition();
+            //評価値の最大値
+            int Max = m_eval.Max();
+            m_maxEvalNumber = 0;
+            for(int amount=0;amount<m_eval.Length;amount++)
+            {
+                if(m_eval[amount]== Max)
+                {
+                    //これが一番大きい評価値の配列の番号
+                    m_maxEvalNumber = amount;
+                    break;
+                }
+            }
+
+           
             //ターゲットの座標を取得
-            m_targetposition = DecideNearPosition();
+            m_targetposition = m_food[m_maxEvalNumber].transform.position;
             //ターゲットを設定
             m_navMeshAgent.destination = m_targetposition;
         }
@@ -127,6 +153,8 @@ public class NavMeshAI : MonoBehaviour
     /// <returns></returns>
     Vector3 DecideNearPosition()
     {
+        //範囲内の食べ物を調べる
+
         //食べ物の座標を取得
         Vector3 foodpos = m_food[0].transform.position;
         //自身から食べ物に向かうベクトルを計算
@@ -146,8 +174,12 @@ public class NavMeshAI : MonoBehaviour
             //ベクトルを長さに変換
             float Length = Diff.magnitude;
 
+            //フードのポイント
+            int foodPoint = m_food[amount].GetComponent<Food>().GetPoint();
 
+            m_eval[amount] = 50 * foodPoint;
 
+           
             //もし自身から最も近いなら
             if (nearLength > Length)
             {
@@ -159,7 +191,7 @@ public class NavMeshAI : MonoBehaviour
                 }
 
                 //一番近い食べ物の評価値を上げていく
-                m_eval[amount] += 100;
+                //m_eval[amount] += 100;
 
                 //一番近い食べ物を入れ替える
                 nearLength = Length;
