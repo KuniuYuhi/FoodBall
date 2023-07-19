@@ -8,7 +8,7 @@ using System;
 public class AI : Actor
 {
 
-    enum EnAICharacter
+    public enum EnAICharacter
     {
         enCharacter_Cat,
         enCharacter_Duck,
@@ -17,6 +17,10 @@ public class AI : Actor
 
     [SerializeField, Header("AIキャラクターの名前")]
     EnAICharacter m_enAiCharacter;
+    public EnAICharacter GetAICharactor()
+    {
+        return m_enAiCharacter;
+    }
 
     [SerializeField, Header("移動速度")]
     float m_moveSpeed;
