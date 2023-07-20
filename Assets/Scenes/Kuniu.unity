@@ -135,6 +135,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Banana (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9130724683027658646, guid: af364cbed9e35ae4d811a2d342c939e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9132000164290078254, guid: af364cbed9e35ae4d811a2d342c939e6,
         type: 3}
       propertyPath: m_RootOrder
@@ -301,6 +306,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sushi
       objectReference: {fileID: 0}
+    - target: {fileID: 171155278159275115, guid: dc2faaba8fa42a34a8f4a9b13c23f173,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 174981423869261081, guid: dc2faaba8fa42a34a8f4a9b13c23f173,
         type: 3}
       propertyPath: m_RootOrder
@@ -425,6 +435,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Burger
       objectReference: {fileID: 0}
+    - target: {fileID: 3322383139312171673, guid: 8fc38c0ba83d34a4c9ff29586b9b9c90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fc38c0ba83d34a4c9ff29586b9b9c90, type: 3}
 --- !u!1 &178464405
@@ -516,14 +531,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178464405}
-  m_LocalRotation: {x: -0, y: -0.0014755778, z: -0, w: 0.9999989}
-  m_LocalPosition: {x: -3.5, y: 0, z: -77.5}
+  m_LocalRotation: {x: -0, y: -0.6785229, z: -0, w: 0.73457927}
+  m_LocalPosition: {x: 0.6, y: 0, z: -26.5}
   m_LocalScale: {x: 5, y: 10, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 31
-  m_LocalEulerAnglesHint: {x: 0, y: -0.169, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -85.457, z: 0}
 --- !u!1001 &223202030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -535,6 +550,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chicken (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
@@ -600,6 +620,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2692542990252353991, guid: 00047ecfad1535f4fb27355a1edd54cc,
+        type: 3}
+      propertyPath: m_jumpPower
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2692542990252353991, guid: 00047ecfad1535f4fb27355a1edd54cc,
         type: 3}
       propertyPath: m_moveSpeed
@@ -679,6 +704,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chicken (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
       propertyPath: m_RootOrder
@@ -747,6 +777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chicken (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
@@ -900,37 +935,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 34
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &561967846
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 561967847}
-  m_Layer: 0
-  m_Name: Food
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &561967847
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561967846}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43.142403, y: -20.204054, z: 21.822334}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &597664580
@@ -944,6 +948,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sushi (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 171155278159275115, guid: dc2faaba8fa42a34a8f4a9b13c23f173,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 174981423869261081, guid: dc2faaba8fa42a34a8f4a9b13c23f173,
         type: 3}
@@ -1014,6 +1023,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chicken (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
       propertyPath: m_RootOrder
@@ -1082,6 +1096,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Banana (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130724683027658646, guid: af364cbed9e35ae4d811a2d342c939e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9132000164290078254, guid: af364cbed9e35ae4d811a2d342c939e6,
         type: 3}
@@ -1152,6 +1171,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Banana (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 9130724683027658646, guid: af364cbed9e35ae4d811a2d342c939e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9132000164290078254, guid: af364cbed9e35ae4d811a2d342c939e6,
         type: 3}
       propertyPath: m_RootOrder
@@ -1220,6 +1244,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chicken
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
@@ -1290,6 +1319,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chicken (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
       propertyPath: m_RootOrder
@@ -1358,6 +1392,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chicken (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
@@ -1505,14 +1544,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130311340}
-  m_LocalRotation: {x: 0, y: 0.97218627, z: 0, w: 0.23420906}
-  m_LocalPosition: {x: 64, y: 0, z: 149.8}
-  m_LocalScale: {x: 5, y: 10, z: 30}
+  m_LocalRotation: {x: -0, y: 0.96958417, z: -0, w: -0.244758}
+  m_LocalPosition: {x: 28.9, y: 0, z: 126.3}
+  m_LocalScale: {x: 5, y: 10, z: 382.53}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 35
-  m_LocalEulerAnglesHint: {x: 0, y: 152.91, z: 0}
+  m_RootOrder: 34
+  m_LocalEulerAnglesHint: {x: 0, y: 208.335, z: 0}
 --- !u!1001 &1199217803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1524,6 +1563,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sushi (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 171155278159275115, guid: dc2faaba8fa42a34a8f4a9b13c23f173,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 174981423869261081, guid: dc2faaba8fa42a34a8f4a9b13c23f173,
         type: 3}
@@ -1594,6 +1638,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sushi (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 171155278159275115, guid: dc2faaba8fa42a34a8f4a9b13c23f173,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 174981423869261081, guid: dc2faaba8fa42a34a8f4a9b13c23f173,
         type: 3}
       propertyPath: m_RootOrder
@@ -1662,6 +1711,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chicken (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
@@ -1847,6 +1901,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chicken (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
       propertyPath: m_RootOrder
@@ -1915,6 +1974,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chicken (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
@@ -2223,6 +2287,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Burger (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3322383139312171673, guid: 8fc38c0ba83d34a4c9ff29586b9b9c90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fc38c0ba83d34a4c9ff29586b9b9c90, type: 3}
 --- !u!1001 &1647362518
@@ -2236,6 +2305,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Banana (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130724683027658646, guid: af364cbed9e35ae4d811a2d342c939e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9132000164290078254, guid: af364cbed9e35ae4d811a2d342c939e6,
         type: 3}
@@ -2361,6 +2435,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Burger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3322383139312171673, guid: 8fc38c0ba83d34a4c9ff29586b9b9c90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fc38c0ba83d34a4c9ff29586b9b9c90, type: 3}
 --- !u!1001 &1806314710
@@ -2374,6 +2453,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Banana
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130724683027658646, guid: af364cbed9e35ae4d811a2d342c939e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9132000164290078254, guid: af364cbed9e35ae4d811a2d342c939e6,
         type: 3}
@@ -2498,6 +2582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Burger (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322383139312171673, guid: 8fc38c0ba83d34a4c9ff29586b9b9c90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fc38c0ba83d34a4c9ff29586b9b9c90, type: 3}
@@ -2635,8 +2724,8 @@ MonoBehaviour:
   RotSpeed: 0.5
   RotUpLimit: 40
   RotDownLimit: -20
-  CameraRange: 20
-  CameraY_Up: 5
+  CameraRange: 30
+  CameraY_Up: 20
 --- !u!1001 &1914428383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2644,6 +2733,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1455160144146029890, guid: 79dae52ef1588024daea6a589d02cbf1,
+        type: 3}
+      propertyPath: m_jumpPower
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 1455160144146029891, guid: 79dae52ef1588024daea6a589d02cbf1,
         type: 3}
       propertyPath: m_RootOrder
@@ -2652,7 +2746,7 @@ PrefabInstance:
     - target: {fileID: 1455160144146029891, guid: 79dae52ef1588024daea6a589d02cbf1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -49.62789
+      value: -31.1
       objectReference: {fileID: 0}
     - target: {fileID: 1455160144146029891, guid: 79dae52ef1588024daea6a589d02cbf1,
         type: 3}
@@ -2717,6 +2811,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chicken (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}
@@ -2786,6 +2885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chicken (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990358364379316706, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993551672761946856, guid: 7c6035c2dca5ce34aa76e460d16cf10e,
         type: 3}

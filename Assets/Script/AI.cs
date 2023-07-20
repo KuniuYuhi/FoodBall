@@ -25,6 +25,9 @@ public class AI : Actor
     [SerializeField, Header("ˆÚ“®‘¬“x")]
     float m_moveSpeed;
 
+    [Header("ƒWƒƒƒ“ƒv—Í")]
+    public float m_jumpPower = 0.0f;
+
     NavMeshAgent m_navMeshAgent;
     public void SetNavMeshAgent(NavMeshAgent navMeshAgent)
     {
@@ -52,9 +55,17 @@ public class AI : Actor
         m_defRadius = m_navMeshAgent.radius;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         MoveAI();
+    }
+
+    void Update()
+    {
+       
+
+        //ƒWƒƒƒ“ƒv
+        Jamp();
 
         // ”¼ŒaXV
         m_navMeshAgent.radius = m_defRadius * transform.localScale.x;
@@ -67,7 +78,7 @@ public class AI : Actor
         // ”O‚Ì‚½‚ßƒGƒ‰[–h~
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
-            m_nowIndex--;
+            m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
         }
 
         return m_navMeshAgent.path.corners[m_nowIndex];
@@ -79,7 +90,7 @@ public class AI : Actor
         // ”O‚Ì‚½‚ßƒGƒ‰[–h~
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
-            m_nowIndex--;
+            m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
             return;
         }
 
@@ -125,6 +136,20 @@ public class AI : Actor
         //Debug.Log("Move:" + diff);
         m_rigidbody.AddForce(diff);
         m_navMeshAgent.nextPosition = transform.position;
+    }
+
+    void Jamp()
+    {
+        RaycastHit raycastHit;
+       if(Physics.Raycast(transform.position, GetNextPosition(),out raycastHit, transform.localScale.x + 1.0f))
+        {
+            if(m_isJumpFlag == true)
+            {
+                m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
+            }
+        }
+
+
     }
 
     override protected void SetTarget()
