@@ -33,9 +33,7 @@ public class NavMeshAI : MonoBehaviour
     int nearPosNumber = 0;
 
     int m_maxEvalNumber = 0;
-    int m_oldMaxEvalNumber = 0;
-
-    //
+   
     float m_counter = 0.0f;
 
     GameObject targetObject;
@@ -45,17 +43,8 @@ public class NavMeshAI : MonoBehaviour
 
     int m_addEvalValue = 100;
 
-    Vector3 m_oldDestination = Vector3.zero;
-
     //調べる範囲
     public float m_range = 200.0f;
-
-
-    private void Start()
-    {
-        //3秒数以上だったら
-        //StartCoroutine("SetRamdomTarget");
-    }
 
     void Awake()
     {
@@ -76,16 +65,9 @@ public class NavMeshAI : MonoBehaviour
        
     }
 
-    //private void FixedUpdate()
-    //{
-     
-    //}
-
     void Update()
     {
-        //もしDestinationが自身と近かったら
-
-        //AIとナビメッシュの座標がずれている
+        
         m_navMeshAgent.nextPosition = m_targetEnemy.transform.position;
     }
 
@@ -153,7 +135,6 @@ public class NavMeshAI : MonoBehaviour
         if (FindFoods() == true)
         {
             //ターゲットの座標を取得
-            //m_targetposition = m_food[nearPosNumber].transform.position;
             GameObject target = DecideNearPosition();
 
             // 同じ場所
@@ -169,20 +150,15 @@ public class NavMeshAI : MonoBehaviour
 
             ResetIndex();
 
-            ///////////////////////////////////////////////////////////////////////////
             Debug.Log(m_navMeshAgent.destination);
 
-            m_oldDestination = m_navMeshAgent.destination;
+            
         }
         else
         {
             //ランダムに座標を取得
             SetRamdomTarget();
         }
-
-
-         //現在の最大値の評価値の配列の番号を保存する
-         m_oldMaxEvalNumber = nearPosNumber;
     }
 
     void ResetIndex()
@@ -217,13 +193,6 @@ public class NavMeshAI : MonoBehaviour
             m_eval[i] = 0;
         }
 
-        //食べ物の座標を取得
-        //Vector3 foodpos = m_food[0].transform.position;
-        ////自身から食べ物に向かうベクトルを計算
-        //Vector3 diff = foodpos - transform.position;
-        ////ベクトルを長さに変換
-        //float nearLength = diff.magnitude;
-        ////////////
         float nearLength = m_range;
 
         int noRangeCount = 0;
