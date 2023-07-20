@@ -33,14 +33,29 @@ public class NavMeshAI : MonoBehaviour
     int nearPosNumber = 0;
 
     int m_maxEvalNumber = 0;
+    int m_oldMaxEvalNumber = 0;
+
+    //
+    float m_counter = 0.0f;
+
+    GameObject targetObject;
+    
+    [Header("ターゲットが被った時のカウントの上限")]
+    public const int m_maxEvalCountLimit = 3;
 
     int m_addEvalValue = 100;
 
     Vector3 m_oldDestination = Vector3.zero;
 
-    //List<int>[] eval = new List<int>();
+    //調べる範囲
+    public float m_range = 200.0f;
 
-    //nearPosNumber用意する
+
+    private void Start()
+    {
+        //3秒数以上だったら
+        //StartCoroutine("SetRamdomTarget");
+    }
 
     void Awake()
     {
@@ -57,6 +72,8 @@ public class NavMeshAI : MonoBehaviour
 
         FindFoods();
         DicideTarget();
+
+       
     }
 
     //private void FixedUpdate()
@@ -68,7 +85,7 @@ public class NavMeshAI : MonoBehaviour
     {
         //もしDestinationが自身と近かったら
 
-
+        //AIとナビメッシュの座標がずれている
         m_navMeshAgent.nextPosition = m_targetEnemy.transform.position;
     }
 
@@ -114,49 +131,45 @@ public class NavMeshAI : MonoBehaviour
     /// </summary>
     void DicideTarget()
     {
+        //しばらくその場にいたなら
+        Vector3 a = transform.position - m_targetAI.GetNextPosition();
+        float A = a.magnitude;
+
+        if (A < 5.0f)
+        {
+            m_counter += Time.deltaTime;
+            if (m_counter > 3.0f)
+            {
+                SetRamdomTarget();
+            }
+        }
+        else
+        {
+            m_counter = 0.0f;
+        }
+
         //食べ物を検索
         //食べ物があったら
         if (FindFoods() == true)
         {
-            //自身から一番近い食べ物を決める
-            DecideNearPosition();
-            //評価値の最大値
-            int Max = m_eval.Max();
-            m_maxEvalNumber = 0;
-            for(int amount=0;amount<m_eval.Length;amount++)
+            //ターゲットの座標を取得
+            //m_targetposition = m_food[nearPosNumber].transform.position;
+            GameObject target = DecideNearPosition();
+
+            // 同じ場所
+            if(targetObject == target)
             {
-                if(m_eval[amount]== Max)
-                {
-                    //これが一番大きい評価値の配列の番号
-                    m_maxEvalNumber = amount;
-                    break;
-                }
+                return;
             }
 
-           
-            //ターゲットの座標を取得
-            m_targetposition = m_food[nearPosNumber].transform.position;
-            //ターゲットを設定
-            //m_navMeshAgent.destination = m_targetposition;
-           
+            targetObject = target;
+            m_targetposition = targetObject.transform.position;
+            m_navMeshAgent.enabled = true;
             m_navMeshAgent.SetDestination(m_targetposition);
 
+            ResetIndex();
 
-            Vector3 a = transform.position - m_targetposition;
-            Vector3 b=transform.position- m_navMeshAgent.destination;
-
-            float A = a.magnitude;
-            float B = b.magnitude;
-
-            if (B<1.0)
-            {
-                m_navMeshAgent.ResetPath();
-                //ランダムに座標を取得
-                m_targetposition = DecideRamdomPosition();
-                //ターゲットを設定
-                m_navMeshAgent.destination = m_targetposition;
-            }
-
+            ///////////////////////////////////////////////////////////////////////////
             Debug.Log(m_navMeshAgent.destination);
 
             m_oldDestination = m_navMeshAgent.destination;
@@ -164,24 +177,38 @@ public class NavMeshAI : MonoBehaviour
         else
         {
             //ランダムに座標を取得
-            m_targetposition = DecideRamdomPosition();
-            //ターゲットを設定
-            m_navMeshAgent.destination = m_targetposition;
+            SetRamdomTarget();
         }
 
-        if (m_nowTargetPosition != m_targetposition)
-        {
-            // リセット
-            m_targetAI.SetNowIndex(0);
-        }
+
+         //現在の最大値の評価値の配列の番号を保存する
+         m_oldMaxEvalNumber = nearPosNumber;
+    }
+
+    void ResetIndex()
+    {
+        // リセット
+        m_targetAI.SetNowIndex(0);
+
         m_nowTargetPosition = m_targetposition;
+    }
+
+    void SetRamdomTarget()
+    {
+
+        //ランダムに座標を取得
+        m_targetposition = DecideRamdomPosition();
+        //ターゲットを設定
+        m_navMeshAgent.SetDestination(m_targetposition);
+
+        
     }
 
     /// <summary>
     /// 一番近い食べ物の座標を返す
     /// </summary>
     /// <returns></returns>
-    Vector3 DecideNearPosition()
+    GameObject DecideNearPosition()
     {
         //範囲内の食べ物を調べる
 
@@ -191,14 +218,20 @@ public class NavMeshAI : MonoBehaviour
         }
 
         //食べ物の座標を取得
-        Vector3 foodpos = m_food[0].transform.position;
-        //自身から食べ物に向かうベクトルを計算
-        Vector3 diff = foodpos - transform.position;
-        //ベクトルを長さに変換
-        float nearLength = diff.magnitude;
+        //Vector3 foodpos = m_food[0].transform.position;
+        ////自身から食べ物に向かうベクトルを計算
+        //Vector3 diff = foodpos - transform.position;
+        ////ベクトルを長さに変換
+        //float nearLength = diff.magnitude;
+        ////////////
+        float nearLength = m_range;
+
+        int noRangeCount = 0;
 
         //一番近い食べ物の配列番号
         nearPosNumber = 0;
+
+        m_addEvalValue = 100;
 
         for (int amount = 1; amount < m_food.Length; amount++)
         {
@@ -212,35 +245,56 @@ public class NavMeshAI : MonoBehaviour
             //フードのポイント
             int foodPoint = m_food[amount].GetComponent<Food>().GetPoint();
 
-            m_eval[amount] = 50 * foodPoint;
-            m_addEvalValue = 100;
+            m_eval[amount] = 10 * foodPoint;
+            
 
-            //もし自身から最も近いなら
-            if (nearLength > Length)
+            //範囲内なら
+            if(m_range> Length)
             {
-                
-                //一番近い食べ物の評価値を上げていく
-                m_eval[amount] += m_addEvalValue;
-                //次の評価値は10大きくする
-                m_addEvalValue += 10;
+                //もし自身から最も近いなら
+                if (nearLength > Length)
+                {
+                    //一番近い食べ物の評価値を上げていく
+                    m_eval[amount] += m_addEvalValue;
+                    //次の評価値は10大きくする
+                    m_addEvalValue += 10;
 
-                //一番近い食べ物を入れ替える
-                nearLength = Length;
-
-                nearPosNumber = amount;
-
-
+                    //一番近い食べ物を入れ替える
+                    nearLength = Length;
+                    nearPosNumber = amount;
+                }
             }
             else
             {
-                //一番近い食べ物の評価値を上げていく
-                //m_eval[nearPosNumber] += 100;
+                //範囲内にないのでカウントを増やす
+                noRangeCount++;
+            }
+
+        }
+
+        //全ての食べ物が範囲内になかったら
+        if(noRangeCount== m_food.Length)
+        {
+            return null;
+        }
+
+        //評価値の最大値
+        int Max = m_eval.Max();
+        m_maxEvalNumber = 0;
+        for (int amount = 0; amount < m_eval.Length; amount++)
+        {
+            if (m_eval[amount] == Max)
+            {
+                //これが一番大きい評価値の配列の番号
+                m_maxEvalNumber = amount;
+                break;
             }
         }
 
-        Debug.Log(m_eval[nearPosNumber]);
 
-        return m_food[nearPosNumber].transform.position;
+        Debug.Log(m_eval[m_maxEvalNumber]);
+
+        return m_food[m_maxEvalNumber];
     }
 
     /// <summary>

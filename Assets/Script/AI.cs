@@ -62,12 +62,24 @@ public class AI : Actor
         m_navMeshAgent.nextPosition = transform.position;
     }
 
+    public Vector3 GetNextPosition()
+    {
+        // 念のためエラー防止
+        if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
+        {
+            m_nowIndex--;
+        }
+
+        return m_navMeshAgent.path.corners[m_nowIndex];
+    }
+
     //AIの移動処理
     void MoveAI()
     {
         // 念のためエラー防止
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
+            m_nowIndex--;
             return;
         }
 
@@ -77,7 +89,7 @@ public class AI : Actor
         nowPosition.y = 0.0f;
 
         // 距離チェック
-        if (Vector3.Distance(nowPosition, targetPosition) < 5.0f)
+        if (Vector3.Distance(nowPosition, targetPosition) < 20.0f)
         {
             // ついたのは最終目的地かどうか
             if (Vector3.Distance(nowPosition, m_navMeshAI.GetTargetPosition()) < 5.0f)
@@ -112,6 +124,7 @@ public class AI : Actor
         diff.y = 0.0f;
         //Debug.Log("Move:" + diff);
         m_rigidbody.AddForce(diff);
+        m_navMeshAgent.nextPosition = transform.position;
     }
 
     override protected void SetTarget()
