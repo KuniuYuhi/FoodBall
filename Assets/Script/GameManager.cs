@@ -80,6 +80,11 @@ public class GameManager : MonoBehaviour
     [SerializeField, Header("デフォルト制限時間（分）")]
     int m_defLimitMinit;
 
+    [SerializeField, Header("Ready用キャンバス")]
+    GameObject ReadyCanvas;
+    [SerializeField, Header("End用キャンバス")]
+    GameObject EndCanvas;
+
     // 現在のタイマー
     int m_timerMinit;
     public int GetMinit()
@@ -101,8 +106,12 @@ public class GameManager : MonoBehaviour
         m_timerMinit = m_defLimitMinit - 1;
         m_timerSecond = 60.0f;
 
-        //6秒待ってから開始
-        await UniTask.Delay(8000);
+        ReadyCanvas.SetActive(true);
+        EndCanvas.SetActive(false);
+
+        //待ってから開始
+        await UniTask.Delay(6400);
+        ReadyCanvas.SetActive(false);
         m_gameState = GameState.enGameMode_Play;
     }
 
@@ -127,6 +136,8 @@ public class GameManager : MonoBehaviour
                     // 終了
                     if (m_timerMinit < 0)
                     {
+                        m_timerMinit = 0;
+                        m_timerSecond = 0.0f;
                         GameEnd();
                     }
                 }
@@ -151,6 +162,7 @@ public class GameManager : MonoBehaviour
     async void GameEnd()
     {
         m_gameState = GameState.enGameMode_End;
+        EndCanvas.SetActive(true);
         m_gameEnd = true;
         await UniTask.Delay(3000);
 
