@@ -8,7 +8,7 @@ using System;
 public class AI : Actor
 {
 
-    enum EnAICharacter
+    public enum EnAICharacter
     {
         enCharacter_Cat,
         enCharacter_Duck,
@@ -17,6 +17,10 @@ public class AI : Actor
 
     [SerializeField, Header("AIキャラクターの名前")]
     EnAICharacter m_enAiCharacter;
+    public EnAICharacter GetAICharactor()
+    {
+        return m_enAiCharacter;
+    }
 
     [SerializeField, Header("移動速度")]
     float m_moveSpeed;
@@ -54,6 +58,8 @@ public class AI : Actor
 
         // 半径更新
         m_navMeshAgent.radius = m_defRadius * transform.localScale.x;
+
+        m_navMeshAgent.nextPosition = transform.position;
     }
 
     //AIの移動処理
@@ -108,4 +114,8 @@ public class AI : Actor
         m_rigidbody.AddForce(diff);
     }
 
+    override protected void SetTarget()
+    {
+        m_navMeshAI.SetTarget();
+    }
 }

@@ -19,6 +19,19 @@ public class Actor : MonoBehaviour
     protected bool m_isJumpFlag = true;
     virtual protected void GetStartInformation(){}
 
+    //食べ物を獲得したかどうか。AI用
+    bool m_getFoodFlag = false;
+
+    public void SetGetFoodFlag(bool flag)
+    {
+        m_getFoodFlag = flag;
+    }
+
+    public bool GetGetFoodFlag()
+    {
+        return m_getFoodFlag;
+    }
+
     private void Start()
     {
         //必要な情報を取得
@@ -78,21 +91,27 @@ public class Actor : MonoBehaviour
 
             //食べ物を消す
             Destroy(other.gameObject);
+
+            //食べ物を食べたのですぐに新しいターゲットを決める
+            SetTarget();
+
+            //食べ物を食べたのでtrueにする
+            SetGetFoodFlag(true);
         }
 
     }
-
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
         {
             Vector3 Backlash = collision.gameObject.transform.position - transform.position;
             Backlash.y += 50.0f;
-            
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(Backlash,ForceMode.Impulse);
-            m_rigidbody.AddForce(-Backlash,ForceMode.Impulse);
+
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(Backlash, ForceMode.Impulse);
+            m_rigidbody.AddForce(-Backlash, ForceMode.Impulse);
         }
     }
+    virtual protected void SetTarget(){}
 
     private void OnCollisionStay(Collision collision)
     {

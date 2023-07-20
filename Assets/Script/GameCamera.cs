@@ -13,15 +13,19 @@ public class GameCamera : MonoBehaviour
 
 
     private GameObject m_player;
+    Player m_playerC;
     private float m_nowX_Rot = 0.0f;
-
+    float m_defRange;
 
     void Start()
     {
         // Playerタグがついたオブジェクトを探す
         m_player = GameObject.FindGameObjectWithTag("Player");
+        m_playerC = m_player.GetComponent<Player>();
+
         // 初期X軸の回転量を保存
         m_nowX_Rot = transform.localEulerAngles.x;
+        m_defRange = CameraRange;
     }
 
 
@@ -76,5 +80,8 @@ public class GameCamera : MonoBehaviour
         cameraMove.y += CameraY_Up;
         // 座標設定
         transform.position = m_player.transform.position + cameraMove;
+
+        // 距離を調整
+        CameraRange = m_defRange + ((m_playerC.GetEatFoods()) / 5.0f);
     }
 }

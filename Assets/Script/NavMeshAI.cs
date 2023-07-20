@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UniRx;
 using System;
+using System.Linq;
 
 public class NavMeshAI : MonoBehaviour
 {
@@ -31,6 +32,12 @@ public class NavMeshAI : MonoBehaviour
 
     int nearPosNumber = 0;
 
+    int m_maxEvalNumber = 0;
+
+    int m_addEvalValue = 100;
+
+    Vector3 m_oldDestination = Vector3.zero;
+
     //List<int>[] eval = new List<int>();
 
     //nearPosNumber用意する
@@ -52,9 +59,23 @@ public class NavMeshAI : MonoBehaviour
         DicideTarget();
     }
 
+    //private void FixedUpdate()
+    //{
+     
+    //}
+
     void Update()
     {
+        //もしDestinationが自身と近かったら
+
+
         m_navMeshAgent.nextPosition = m_targetEnemy.transform.position;
+    }
+
+    public void SetTarget()
+    {
+         FindFoods();
+         DicideTarget();
     }
 
     /// <summary>
@@ -78,9 +99,6 @@ public class NavMeshAI : MonoBehaviour
         {
             return false;
         }
-
-
-
         //食べ物の数だけ配列を用意する
         int size = m_food.Length;
         m_eval = new int[size];
@@ -100,10 +118,48 @@ public class NavMeshAI : MonoBehaviour
         //食べ物があったら
         if (FindFoods() == true)
         {
+            //自身から一番近い食べ物を決める
+            DecideNearPosition();
+            //評価値の最大値
+            int Max = m_eval.Max();
+            m_maxEvalNumber = 0;
+            for(int amount=0;amount<m_eval.Length;amount++)
+            {
+                if(m_eval[amount]== Max)
+                {
+                    //これが一番大きい評価値の配列の番号
+                    m_maxEvalNumber = amount;
+                    break;
+                }
+            }
+
+           
             //ターゲットの座標を取得
-            m_targetposition = DecideNearPosition();
+            m_targetposition = m_food[nearPosNumber].transform.position;
             //ターゲットを設定
-            m_navMeshAgent.destination = m_targetposition;
+            //m_navMeshAgent.destination = m_targetposition;
+           
+            m_navMeshAgent.SetDestination(m_targetposition);
+
+
+            Vector3 a = transform.position - m_targetposition;
+            Vector3 b=transform.position- m_navMeshAgent.destination;
+
+            float A = a.magnitude;
+            float B = b.magnitude;
+
+            if (B<1.0)
+            {
+                m_navMeshAgent.ResetPath();
+                //ランダムに座標を取得
+                m_targetposition = DecideRamdomPosition();
+                //ターゲットを設定
+                m_navMeshAgent.destination = m_targetposition;
+            }
+
+            Debug.Log(m_navMeshAgent.destination);
+
+            m_oldDestination = m_navMeshAgent.destination;
         }
         else
         {
@@ -127,6 +183,13 @@ public class NavMeshAI : MonoBehaviour
     /// <returns></returns>
     Vector3 DecideNearPosition()
     {
+        //範囲内の食べ物を調べる
+
+        for(int i=0;i< m_food.Length;i++)
+        {
+            m_eval[i] = 0;
+        }
+
         //食べ物の座標を取得
         Vector3 foodpos = m_food[0].transform.position;
         //自身から食べ物に向かうベクトルを計算
@@ -146,20 +209,20 @@ public class NavMeshAI : MonoBehaviour
             //ベクトルを長さに変換
             float Length = Diff.magnitude;
 
+            //フードのポイント
+            int foodPoint = m_food[amount].GetComponent<Food>().GetPoint();
 
+            m_eval[amount] = 50 * foodPoint;
+            m_addEvalValue = 100;
 
             //もし自身から最も近いなら
             if (nearLength > Length)
             {
-                //既に一番近い食べ物の評価値が入っているなら
-                if (m_eval[nearPosNumber] > 0)
-                {
-                    //まず一番近い食べ物の評価値をたす
-                    m_eval[amount] += m_eval[nearPosNumber];
-                }
-
+                
                 //一番近い食べ物の評価値を上げていく
-                m_eval[amount] += 100;
+                m_eval[amount] += m_addEvalValue;
+                //次の評価値は10大きくする
+                m_addEvalValue += 10;
 
                 //一番近い食べ物を入れ替える
                 nearLength = Length;
@@ -171,7 +234,7 @@ public class NavMeshAI : MonoBehaviour
             else
             {
                 //一番近い食べ物の評価値を上げていく
-                m_eval[nearPosNumber] += 100;
+                //m_eval[nearPosNumber] += 100;
             }
         }
 
@@ -188,7 +251,7 @@ public class NavMeshAI : MonoBehaviour
     {
         Vector3 ramdompos = UnityEngine.Random.insideUnitSphere;
 
-        ramdompos *= 20.0f;
+        ramdompos *= 200.0f;
 
         return ramdompos;
     }
