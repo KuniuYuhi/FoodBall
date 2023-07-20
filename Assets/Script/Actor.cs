@@ -84,8 +84,8 @@ public class Actor : MonoBehaviour
             Food m_food=other.GetComponent<Food>();
             //H‚×‚½—Ê‚ğ‰ÁZ‚·‚é
             eatFoods+= m_food.GetPoint();
-            m_rigidbody.mass = (1.0f + (eatFoods * 0.05f));
-            m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 2.5f);
+            m_rigidbody.mass = (1.0f + (eatFoods * 0.04f));
+            m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 2.0f);
             //ƒ‚ƒfƒ‹‚ğ‘å‚«‚­‚·‚é
             SizeUp();
 

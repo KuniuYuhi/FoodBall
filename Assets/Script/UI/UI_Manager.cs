@@ -44,9 +44,17 @@ public class UI_Manager : MonoBehaviour
     void Update()
     {
         // Œ»Ý‚ÌŽžŠÔ‚ð•\Ž¦
-        string timeString = m_gameManager.GetMinit().ToString("00");
+        int Minit = m_gameManager.GetMinit();
+        float second = m_gameManager.GetSecond();
+        if (m_gameManager.GetSecond() >= 60.0f)
+        {
+            Minit++;
+            second = 0.0f;
+        }
+
+        string timeString = Minit.ToString("00");
         timeString += ":";
-        timeString += Mathf.Floor(m_gameManager.GetSecond()).ToString("00");
+        timeString += Mathf.Floor(second).ToString("00");
 
         m_timeText.text = timeString;
 

@@ -7,7 +7,6 @@ using System;
 
 public class AI : Actor
 {
-
     public enum EnAICharacter
     {
         enCharacter_Cat,
