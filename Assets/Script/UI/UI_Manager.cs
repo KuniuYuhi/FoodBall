@@ -9,17 +9,18 @@ public class UI_Manager : MonoBehaviour
     TextMeshProUGUI m_timeText;
     [SerializeField]
     TextMeshProUGUI m_rankNumText, m_rankText;
+    [SerializeField]
+    TextMeshProUGUI m_scoreText;
 
     [Header("------------------")]
     // ミニUI
     [SerializeField, Tooltip("Cat->Duck->Penguin\nAI区別用列挙型の順番")]
     GameObject[] m_enemyUI = new GameObject[3];
-    [SerializeField]
-    RectTransform m_parentUI;
 
     GameManager m_gameManager;
     Camera m_mainCamera;
     GameObject[] m_enemys;
+    Player m_player;
 
     void Awake()
     {
@@ -27,6 +28,8 @@ public class UI_Manager : MonoBehaviour
         m_gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         // メインカメラを取得
         m_mainCamera = Camera.main;
+        // プレイヤーを取得
+        m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         // 敵をまとめて取得
         m_enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -47,23 +50,26 @@ public class UI_Manager : MonoBehaviour
 
         m_timeText.text = timeString;
 
+        // スコア更新
+        m_scoreText.text = "" + m_player.GetEatFoods() + " pt";
+
         // ステータス更新
         StatusUpdate();
     }
 
     void StatusUpdate()
     {
-        // なぜか動かないので止める
-        return;
-
         for(int i = 0; i < m_enemyUI.Length; i++)
         {
             // ターゲットの座標を探す
             Vector3 targetPos = Vector3.zero;
+            AI targetAI = null;
 
             foreach(GameObject target in m_enemys)
             {
-                if ((int)target.GetComponent<AI>().GetAICharactor() == i)
+                targetAI = target.GetComponent<AI>();
+
+                if ((int)targetAI.GetAICharactor() == i)
                 {
                     // 1番目の子供の座標
                     targetPos = target.transform.GetChild(1).transform.position;
@@ -78,35 +84,28 @@ public class UI_Manager : MonoBehaviour
             Vector3 targetDir = targetPos - m_mainCamera.transform.position;
 
             // 内積を使ってカメラ前方かどうかを判定
-            bool isFront = Vector3.Dot(m_mainCamera.transform.forward, targetDir) > 0;
-
-            // 距離でも表示切替
-            if (targetDir.sqrMagnitude >= 80000.0f)
+            if(Vector3.Dot(m_mainCamera.transform.forward, targetDir) < 0)
             {
-                isFront = false;
+                m_enemyUI[i].SetActive(false);
+            }
+            else
+            {
+                m_enemyUI[i].SetActive(true);
+
+                // 距離でも表示切替
+                if (targetDir.sqrMagnitude >= 80000.0f)
+                {
+                    m_enemyUI[i].SetActive(false);
+                }
             }
 
-            // カメラ前方ならUI表示、後方なら非表示
-            m_enemyUI[i].SetActive(isFront);
+            // 座標更新
+            m_enemyUI[i].transform.position
+                = RectTransformUtility.WorldToScreenPoint(Camera.main, targetPos);
 
-            if (isFront == false)
-            {
-                return;
-            }
-
-            // オブジェクトのワールド座標→スクリーン座標変換
-            Vector3 targetScreenPos = m_mainCamera.WorldToScreenPoint(targetPos);
-
-            // スクリーン座標変換→UIローカル座標変換
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                m_parentUI,
-                targetScreenPos,
-                null,
-                out Vector2 uiLocalPos
-            );
-
-            // RectTransformのローカル座標を更新
-            m_enemyUI[i].GetComponent<RectTransform>().localPosition = targetScreenPos;
+            // 表示更新
+            m_enemyUI[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
+                "" + targetAI.GetEatFoods() + "pt";
 
         }
 
