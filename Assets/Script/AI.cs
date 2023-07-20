@@ -25,6 +25,9 @@ public class AI : Actor
     [SerializeField, Header("移動速度")]
     float m_moveSpeed;
 
+    [Header("ジャンプ力")]
+    public float m_jumpPower = 0.0f;
+
     NavMeshAgent m_navMeshAgent;
     public void SetNavMeshAgent(NavMeshAgent navMeshAgent)
     {
@@ -52,14 +55,33 @@ public class AI : Actor
         m_defRadius = m_navMeshAgent.radius;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         MoveAI();
+    }
+
+    void Update()
+    {
+       
+
+        //ジャンプ
+        Jamp();
 
         // 半径更新
         m_navMeshAgent.radius = m_defRadius * transform.localScale.x;
 
         m_navMeshAgent.nextPosition = transform.position;
+    }
+
+    public Vector3 GetNextPosition()
+    {
+        // 念のためエラー防止
+        if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
+        {
+            m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
+        }
+
+        return m_navMeshAgent.path.corners[m_nowIndex];
     }
 
     //AIの移動処理
@@ -68,6 +90,7 @@ public class AI : Actor
         // 念のためエラー防止
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
+            m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
             return;
         }
 
@@ -77,7 +100,7 @@ public class AI : Actor
         nowPosition.y = 0.0f;
 
         // 距離チェック
-        if (Vector3.Distance(nowPosition, targetPosition) < 5.0f)
+        if (Vector3.Distance(nowPosition, targetPosition) < 20.0f)
         {
             // ついたのは最終目的地かどうか
             if (Vector3.Distance(nowPosition, m_navMeshAI.GetTargetPosition()) < 5.0f)
@@ -112,6 +135,21 @@ public class AI : Actor
         diff.y = 0.0f;
         //Debug.Log("Move:" + diff);
         m_rigidbody.AddForce(diff);
+        m_navMeshAgent.nextPosition = transform.position;
+    }
+
+    void Jamp()
+    {
+        RaycastHit raycastHit;
+       if(Physics.Raycast(transform.position, GetNextPosition(),out raycastHit, transform.localScale.x + 1.0f))
+        {
+            if(m_isJumpFlag == true)
+            {
+                m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
+            }
+        }
+
+
     }
 
     override protected void SetTarget()
