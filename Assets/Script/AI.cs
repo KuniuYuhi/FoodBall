@@ -54,6 +54,8 @@ public class AI : Actor
 
         // ”¼ŒaXV
         m_navMeshAgent.radius = m_defRadius * transform.localScale.x;
+
+        m_navMeshAgent.nextPosition = transform.position;
     }
 
     //AI‚ÌˆÚ“®ˆ—
@@ -108,4 +110,8 @@ public class AI : Actor
         m_rigidbody.AddForce(diff);
     }
 
+    override protected void SetTarget()
+    {
+        m_navMeshAI.SetTarget();
+    }
 }
