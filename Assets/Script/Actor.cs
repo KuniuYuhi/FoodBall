@@ -19,6 +19,19 @@ public class Actor : MonoBehaviour
     protected bool m_isJumpFlag = true;
     virtual protected void GetStartInformation(){}
 
+    //食べ物を獲得したかどうか。AI用
+    bool m_getFoodFlag = false;
+
+    public void SetGetFoodFlag(bool flag)
+    {
+        m_getFoodFlag = flag;
+    }
+
+    public bool GetGetFoodFlag()
+    {
+        return m_getFoodFlag;
+    }
+
     private void Start()
     {
         //必要な情報を取得
@@ -77,9 +90,17 @@ public class Actor : MonoBehaviour
 
             //食べ物を消す
             Destroy(other.gameObject);
+
+            //食べ物を食べたのですぐに新しいターゲットを決める
+            SetTarget();
+
+            //食べ物を食べたのでtrueにする
+            SetGetFoodFlag(true);
         }
 
     }
+
+    virtual protected void SetTarget(){}
 
     private void OnCollisionStay(Collision collision)
     {
