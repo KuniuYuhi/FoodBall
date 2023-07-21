@@ -66,7 +66,10 @@ public class AI : Actor
 
     void Update()
     {
-       
+        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
+        {
+            return;
+        }
 
         //ƒWƒƒƒ“ƒv
         Jamp();
@@ -148,6 +151,14 @@ public class AI : Actor
             if(m_isJumpFlag == true)
             {
                 m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
+
+                GameManager.PlaySE3D(
+                    m_jump,
+                    transform.position,
+                    m_jumpMinRange,
+                    m_jumpMaxRange,
+                    m_jumpVolume
+                    );
             }
         }
 

@@ -23,6 +23,22 @@ public class Actor : MonoBehaviour
     //食べ物を獲得したかどうか。AI用
     bool m_getFoodFlag = false;
 
+    [SerializeField, Header("効果音")]
+    protected AudioClip m_eatFood;
+    [SerializeField]
+    protected AudioClip m_jump;
+
+    public int m_eatVolume = 13;
+    public int m_jumpVolume = 5;
+    [SerializeField]
+    protected int m_eatMinRange = 100;
+    [SerializeField]
+    protected int m_eatMaxRange = 200;
+    [SerializeField]
+    protected int m_jumpMinRange = 50;
+    [SerializeField]
+    protected int m_jumpMaxRange = 80;
+
     public void SetGetFoodFlag(bool flag)
     {
         m_getFoodFlag = flag;
@@ -106,6 +122,14 @@ public class Actor : MonoBehaviour
 
             //食べ物を食べたのでtrueにする
             SetGetFoodFlag(true);
+
+            GameManager.PlaySE3D(
+                m_eatFood,
+                transform.position,
+                m_eatMinRange,
+                m_eatMaxRange,
+                m_eatVolume
+                );
         }
 
     }

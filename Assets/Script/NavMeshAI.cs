@@ -103,7 +103,7 @@ public class NavMeshAI : MonoBehaviour
             C *= -1;
         }
 
-        if (C < 1.0f)
+        if (C < 0.2f)
         {
             m_counter += Time.deltaTime;
             if (m_counter > 3.0f)
