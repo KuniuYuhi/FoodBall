@@ -15,6 +15,7 @@ public class Actor : MonoBehaviour
     //キャッシュ
     protected Rigidbody m_rigidbody;
     protected GameObject m_gameCameraObj;
+    protected GameManager m_gameManager;
     //ジャンプ可能かどうか
     protected bool m_isJumpFlag = true;
     virtual protected void GetStartInformation(){}
@@ -37,6 +38,9 @@ public class Actor : MonoBehaviour
         //必要な情報を取得
         m_rigidbody = GetComponent<Rigidbody>();
         m_gameCameraObj = Camera.main.gameObject;
+        m_gameManager = GameObject.FindGameObjectWithTag("GameController").
+            GetComponent<GameManager>();
+
         GetStartInformation();
     }
 

@@ -34,7 +34,7 @@ public class UI_Manager : MonoBehaviour
         m_enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
         // Å‰‚ÍUI‚ğ“§–¾‚É
-        foreach(GameObject uiObj in m_enemyUI)
+        foreach (GameObject uiObj in m_enemyUI)
         {
             uiObj.SetActive(false);
         }

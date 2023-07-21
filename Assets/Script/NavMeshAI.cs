@@ -137,12 +137,6 @@ public class NavMeshAI : MonoBehaviour
             //ターゲットの座標を取得
             GameObject target = DecideNearPosition();
 
-            // 同じ場所
-            if(targetObject == target)
-            {
-                return;
-            }
-
             targetObject = target;
             m_targetposition = targetObject.transform.position;
             m_navMeshAgent.enabled = true;
