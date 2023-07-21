@@ -43,21 +43,10 @@ public class Actor : MonoBehaviour
     //�H�ו���l���������ǂ����BAI�p
     bool m_getFoodFlag = false;
 
-    [SerializeField, Header("���ʉ�")]
-    protected AudioClip m_eatFood;
+   
     [SerializeField]
     protected AudioClip m_jump;
 
-    public int m_eatVolume = 13;
-    public int m_jumpVolume = 5;
-    [SerializeField]
-    protected int m_eatMinRange = 100;
-    [SerializeField]
-    protected int m_eatMaxRange = 200;
-    [SerializeField]
-    protected int m_jumpMinRange = 50;
-    [SerializeField]
-    protected int m_jumpMaxRange = 80;
 
     public void SetGetFoodFlag(bool flag)
     {

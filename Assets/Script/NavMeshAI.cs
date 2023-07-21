@@ -148,8 +148,6 @@ public class NavMeshAI : MonoBehaviour
         int size = m_food.Length;
         m_eval = new int[size];
 
-        Debug.Log(m_eval.Length);
-
         //êHÇ◊ï®Ç™Ç†Ç¡ÇΩ
         return true;
     }
@@ -172,11 +170,7 @@ public class NavMeshAI : MonoBehaviour
             m_navMeshAgent.enabled = true;
             m_navMeshAgent.SetDestination(m_targetposition);
 
-            ResetIndex();
-
-            Debug.Log(m_navMeshAgent.destination);
-
-            
+            ResetIndex();            
         }
         else
         {
