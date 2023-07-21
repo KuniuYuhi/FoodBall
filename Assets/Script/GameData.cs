@@ -12,6 +12,7 @@ public class GameData : MonoBehaviour
         enActorCharacter_Penguin,
         enActorCharacter_Duck,
         enActorCharacter_Cat,
+        enActorCharacter_None
     }
 
     // ƒvƒŒƒCŒ‹‰Ê‚Ì\‘¢‘Ì

@@ -4,26 +4,46 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
-    [SerializeField,Header("H‚×•¨‚ğH‚×‚½”")]
+    [SerializeField,Header("ï¿½Hï¿½×•ï¿½ï¿½ï¿½Hï¿½×‚ï¿½ï¿½ï¿½")]
     int eatFoods = 0;
 
-    [SerializeField, Header("©g‚ÌƒTƒCƒY")]
+    [SerializeField, Header("ï¿½ï¿½ï¿½gï¿½ÌƒTï¿½Cï¿½Y")]
     Vector3 size = Vector3.one;
 
-    [SerializeField, Header("Šg‘å‚·‚é—Ê")]
+    [SerializeField, Header("ï¿½gï¿½å‚·ï¿½ï¿½ï¿½")]
     const float m_scaleUp = 1.035f;
-    //ƒLƒƒƒbƒVƒ…
+    //ï¿½Lï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½
     protected Rigidbody m_rigidbody;
     protected GameObject m_gameCameraObj;
     protected GameManager m_gameManager;
-    //ƒWƒƒƒ“ƒv‰Â”\‚©‚Ç‚¤‚©
+
+    [SerializeField]
+    protected float m_eatMinRange = 100.0f;
+    [SerializeField]
+    protected float m_eatMaxRange = 200.0f;
+    [SerializeField]
+    protected float m_jumpMinRange = 50.0f;
+    [SerializeField]
+    protected float m_jumpMaxRange = 100.0f;
+
+    [SerializeField, Header("ï¿½ï¿½ï¿½ï¿½")]
+    public int m_eatVolume = 13;
+    [SerializeField]
+    public int m_jumpVolume = 6;
+
+    [SerializeField, Header("ï¿½ï¿½ï¿½Ê‰ï¿½")]
+    protected AudioClip m_jamp;
+    [SerializeField]
+    protected AudioClip m_eatFood;
+
+    //ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
     protected bool m_isJumpFlag = true;
     virtual protected void GetStartInformation(){}
 
-    //H‚×•¨‚ğŠl“¾‚µ‚½‚©‚Ç‚¤‚©BAI—p
+    //ï¿½Hï¿½×•ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½BAIï¿½p
     bool m_getFoodFlag = false;
 
-    [SerializeField, Header("Œø‰Ê‰¹")]
+    [SerializeField, Header("ï¿½ï¿½ï¿½Ê‰ï¿½")]
     protected AudioClip m_eatFood;
     [SerializeField]
     protected AudioClip m_jump;
@@ -51,7 +71,7 @@ public class Actor : MonoBehaviour
 
     private void Start()
     {
-        //•K—v‚Èî•ñ‚ğæ“¾
+        //ï¿½Kï¿½vï¿½Èï¿½ï¿½ï¿½æ“¾
         m_rigidbody = GetComponent<Rigidbody>();
         m_gameCameraObj = Camera.main.gameObject;
         m_gameManager = GameObject.FindGameObjectWithTag("GameController").
@@ -62,7 +82,7 @@ public class Actor : MonoBehaviour
 
 
     /// <summary>
-    /// H‚×‚½H‚×•¨‚Ì”‚ğ•Ô‚·
+    /// ï¿½Hï¿½×‚ï¿½ï¿½Hï¿½×•ï¿½ï¿½Ìï¿½ï¿½ï¿½Ô‚ï¿½
     /// </summary>
     /// <returns></returns>
     public int GetEatFoods()
@@ -71,7 +91,7 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒTƒCƒY‚ğ‘å‚«‚­‚·‚é
+    /// ï¿½Tï¿½Cï¿½Yï¿½ï¿½å‚«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     protected void SizeUp(int point)
     {
@@ -88,7 +108,7 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒTƒCƒY‚ğ¬‚³‚­‚·‚é
+    /// ï¿½Tï¿½Cï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     protected void SizeDown()
     {
@@ -103,24 +123,24 @@ public class Actor : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
-        //‚à‚µ©g‚ÆÕ“Ë‚µ‚½‚çƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚ªH‚×•¨‚¾‚Á‚½‚ç
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ÆÕ“Ë‚ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìƒ^ï¿½Oï¿½ï¿½ï¿½Hï¿½×•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if(other.CompareTag("Food"))
         {
             Food m_food=other.GetComponent<Food>();
-            //H‚×‚½—Ê‚ğ‰ÁZ‚·‚é
+            //ï¿½Hï¿½×‚ï¿½ï¿½Ê‚ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
             eatFoods+= m_food.GetPoint();
             m_rigidbody.mass = (1.0f + (eatFoods * 0.01f));
             m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 1.4f);
-            //ƒ‚ƒfƒ‹‚ğ‘å‚«‚­‚·‚é
+            //ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             SizeUp(m_food.GetPoint());
 
-            //H‚×•¨‚ğÁ‚·
+            //ï¿½Hï¿½×•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Destroy(other.gameObject);
 
-            //H‚×•¨‚ğH‚×‚½‚Ì‚Å‚·‚®‚ÉV‚µ‚¢ƒ^[ƒQƒbƒg‚ğŒˆ‚ß‚é
+            //ï¿½Hï¿½×•ï¿½ï¿½ï¿½Hï¿½×‚ï¿½ï¿½Ì‚Å‚ï¿½ï¿½ï¿½ï¿½ÉVï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ß‚ï¿½
             SetTarget();
 
-            //H‚×•¨‚ğH‚×‚½‚Ì‚Åtrue‚É‚·‚é
+            //ï¿½Hï¿½×•ï¿½ï¿½ï¿½Hï¿½×‚ï¿½ï¿½Ì‚ï¿½trueï¿½É‚ï¿½ï¿½ï¿½
             SetGetFoodFlag(true);
 
             GameManager.PlaySE3D(

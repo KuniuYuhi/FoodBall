@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Player : Actor
 {
-    //ƒpƒ‰ƒ[ƒ^
-    //ƒvƒŒƒCƒ„[‚ÌˆÚ“®‘¬“x
-    [SerializeField,Header("ƒvƒŒƒCƒ„[‚ÌˆÚ“®‘¬“x")]
+    //ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^
+    //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½x
+    [SerializeField,Header("ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½x")]
     float m_moveSpeed = 0.0f;
-    [SerializeField, Header("ƒvƒŒƒCƒ„[‚ÌƒWƒƒƒ“ƒv—Í")]
+    [SerializeField, Header("ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½")]
     float m_jumpPower = 0.0f;
 
     
@@ -16,25 +16,25 @@ public class Player : Actor
 
     GameObject m_mainCamera;
 
-    //ƒvƒŒƒCƒ„[‚ÌˆÚ“®‘¬“xİ’è
+    //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½xï¿½İ’ï¿½
     public void SetMoveSpeed(float speed)
     {
         m_moveSpeed = speed;
     }
 
-    //ƒvƒŒƒCƒ„[‚ÌˆÚ“®‘¬“x‚Ìæ“¾
+    //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½xï¿½Ìæ“¾
     public float GetMoveSpeed()
     {
         return m_moveSpeed;
     }
 
-    //ƒvƒŒƒCƒ„[‚ÌƒWƒƒƒ“ƒv—Êİ’è
+    //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Êİ’ï¿½
     public void SetJumpPower(float power)
     {
         m_jumpPower = power;
     }
 
-    //ƒvƒŒƒCƒ„[‚ÌƒWƒƒƒ“ƒv—Ê‚Ìæ“¾
+    //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Ê‚Ìæ“¾
     public float GetJumpPower()
     {
         return m_jumpPower;
@@ -47,7 +47,7 @@ public class Player : Actor
     {
         base.GetStartInformation();
 
-        // ƒƒCƒ“ƒJƒƒ‰‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğæ“¾‚·‚é
+        // ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ÌƒQï¿½[ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
         m_mainCamera = Camera.main.gameObject;
     }
 
@@ -60,7 +60,7 @@ public class Player : Actor
     {
         Jump();
     }
-    //ˆÚ“®ˆ—
+    //ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
     private void Move()
     {
         if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
@@ -79,10 +79,10 @@ public class Player : Actor
         right.y = 0.0f;
         right *= m_stickL.x;
         forward *= m_stickL.z;
-        // ˆÚ“®‘¬“x‚Éã‹L‚ÅŒvZ‚µ‚½ƒxƒNƒgƒ‹‚ğ‰ÁZ‚·‚é
+        // ï¿½Ú“ï¿½ï¿½ï¿½ï¿½xï¿½Éï¿½Lï¿½ÅŒvï¿½Zï¿½ï¿½ï¿½ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
         m_playerMove += right + forward;
 
-        //ƒvƒŒƒCƒ„[‚Ì‘¬“x‚ğİ’è‚·‚é‚±‚Æ‚ÅˆÚ“®‚Å‚«‚é
+        //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì‘ï¿½ï¿½xï¿½ï¿½İ’è‚·ï¿½é‚±ï¿½Æ‚ÅˆÚ“ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
         m_playerMove = (m_playerMove * m_moveSpeed * Time.deltaTime);
         m_playerMove.y = 0.0f;
         m_rigidbody.AddForce(m_playerMove);
