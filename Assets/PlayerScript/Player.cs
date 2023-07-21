@@ -102,6 +102,14 @@ public class Player : Actor
             if(m_isJumpFlag)
             {
                 m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
+
+                GameManager.PlaySE3D(
+                    m_jamp,
+                    transform.position,
+                    m_jumpMinRange,
+                    m_jumpMaxRange,
+                    m_jumpVolume
+                    );
             }
         }
     }
