@@ -399,6 +399,10 @@ MonoBehaviour:
   m_rankNumText: {fileID: 1464688211}
   m_rankText: {fileID: 2140521046}
   m_scoreText: {fileID: 914336027}
+  m_1stOutLineColor: {r: 0, g: 0, b: 0.58431375, a: 1}
+  m_2ndOutLineColor: {r: 0, g: 0, b: 0, a: 1}
+  m_3rdOutLineColor: {r: 0.23581344, g: 0.4277927, b: 0.6037736, a: 1}
+  m_4thOutLineColor: {r: 0, g: 0, b: 0, a: 1}
   m_enemyUI:
   - {fileID: 1492404200}
   - {fileID: 1469527873}
