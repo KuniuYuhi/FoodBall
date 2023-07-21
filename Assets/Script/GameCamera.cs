@@ -73,6 +73,6 @@ public class GameCamera : MonoBehaviour
         transform.position = m_player.transform.position + cameraMove;
 
         // ‹——£‚ğ’²®
-        CameraRange = m_defRange + ((m_playerC.GetEatFoods()) * 0.8f);
+        CameraRange = m_defRange + ((m_playerC.transform.localScale.x) * 1.0f);
     }
 }

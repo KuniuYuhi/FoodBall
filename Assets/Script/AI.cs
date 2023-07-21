@@ -67,7 +67,7 @@ public class AI : Actor
         Jamp();
 
         // îºåaçXêV
-        m_navMeshAgent.radius = m_defRadius * transform.localScale.x;
+        m_navMeshAgent.radius = m_defRadius + (transform.localScale.x * 0.01f);
 
         m_navMeshAgent.nextPosition = transform.position;
     }

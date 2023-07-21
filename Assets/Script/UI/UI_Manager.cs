@@ -60,7 +60,7 @@ public class UI_Manager : MonoBehaviour
 
         // スコア更新
         m_scoreText.text = "" + m_player.GetEatFoods() + " pt";
-
+        
         // ステータス更新
         StatusUpdate();
     }
