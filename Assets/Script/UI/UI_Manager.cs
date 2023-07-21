@@ -51,7 +51,7 @@ public class UI_Manager : MonoBehaviour
         m_enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
         // 最初はUIを透明に
-        foreach(GameObject uiObj in m_enemyUI)
+        foreach (GameObject uiObj in m_enemyUI)
         {
             uiObj.SetActive(false);
         }
@@ -77,7 +77,7 @@ public class UI_Manager : MonoBehaviour
 
         // スコア更新
         m_scoreText.text = "" + m_player.GetEatFoods() + " pt";
-
+        
         // ステータス更新
         StatusUpdate();
 

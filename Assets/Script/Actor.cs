@@ -11,10 +11,11 @@ public class Actor : MonoBehaviour
     Vector3 size = Vector3.one;
 
     [SerializeField, Header("拡大する量")]
-    const float m_scaleUp = 1.05f;
+    const float m_scaleUp = 1.035f;
     //キャッシュ
     protected Rigidbody m_rigidbody;
     protected GameObject m_gameCameraObj;
+    protected GameManager m_gameManager;
     //ジャンプ可能かどうか
     protected bool m_isJumpFlag = true;
     virtual protected void GetStartInformation(){}
@@ -37,6 +38,9 @@ public class Actor : MonoBehaviour
         //必要な情報を取得
         m_rigidbody = GetComponent<Rigidbody>();
         m_gameCameraObj = Camera.main.gameObject;
+        m_gameManager = GameObject.FindGameObjectWithTag("GameController").
+            GetComponent<GameManager>();
+
         GetStartInformation();
     }
 
@@ -57,7 +61,7 @@ public class Actor : MonoBehaviour
     {
         for (int i = 0; i < point; i++)
         {
-            if (transform.localScale.x > transform.localScale.x * 3.0f)
+            if (transform.localScale.x > 300.0f)
             {
                 return;
             }
@@ -89,8 +93,8 @@ public class Actor : MonoBehaviour
             Food m_food=other.GetComponent<Food>();
             //食べた量を加算する
             eatFoods+= m_food.GetPoint();
-            m_rigidbody.mass = (1.0f + (eatFoods * 0.04f));
-            m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 2.0f);
+            m_rigidbody.mass = (1.0f + (eatFoods * 0.01f));
+            m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 1.4f);
             //モデルを大きくする
             SizeUp(m_food.GetPoint());
 

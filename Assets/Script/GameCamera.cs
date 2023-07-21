@@ -13,6 +13,7 @@ public class GameCamera : MonoBehaviour
 
 
     private GameObject m_player;
+    GameManager m_gameManager;
     Player m_playerC;
     private float m_nowX_Rot = 0.0f;
     float m_defRange;
@@ -22,14 +23,32 @@ public class GameCamera : MonoBehaviour
         // Playerタグがついたオブジェクトを探す
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_playerC = m_player.GetComponent<Player>();
+        m_gameManager = GameObject.FindGameObjectWithTag("GameController").
+            GetComponent<GameManager>();
 
         // 初期X軸の回転量を保存
         m_nowX_Rot = transform.localEulerAngles.x;
         m_defRange = CameraRange;
+
+        // 初期化
+        CameraUpdate();
+
     }
 
 
     void Update()
+    {
+        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
+        {
+            CameraSet();
+
+            return;
+        }
+
+        CameraUpdate();
+    }
+
+    void CameraUpdate()
     {
         // 上下
         float Up_rot = Time.deltaTime * RotSpeed;
@@ -64,6 +83,12 @@ public class GameCamera : MonoBehaviour
         }
         transform.RotateAround(m_player.transform.position, Vector3.up, Left_rot);
 
+        CameraSet();
+
+    }
+
+    void CameraSet()
+    {
         // 座標計算
         // カメラの前方向を使って移動量を計算
         Vector3 cameraMove = transform.forward * -CameraRange;
@@ -73,6 +98,9 @@ public class GameCamera : MonoBehaviour
         transform.position = m_player.transform.position + cameraMove;
 
         // 距離を調整
-        CameraRange = m_defRange + ((m_playerC.GetEatFoods()) * 0.8f);
+        CameraRange = m_defRange + ((m_playerC.transform.localScale.x) * 1.0f);
+
     }
+
+
 }
