@@ -16,6 +16,14 @@ public class BreakObject : MonoBehaviour
     [SerializeField, Header("破壊に必要な食べ物パワー")]
     int m_breakPoint;
 
+    [SerializeField, Header("効果音")]
+    AudioClip m_explosion;
+
+    public float m_minRange=200;
+    public float m_maxRange = 400;
+
+    public int m_volume = 18;
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Player") ||
@@ -32,6 +40,14 @@ public class BreakObject : MonoBehaviour
                 effect.transform.localScale = new Vector3(m_effectScale, m_effectScale, m_effectScale);
 
                 Destroy(gameObject);
+
+                GameManager.PlaySE3D(
+                    m_explosion,
+                    transform.position,
+                    m_minRange,
+                    m_maxRange,
+                    m_volume
+                    );
             }
         }
     }

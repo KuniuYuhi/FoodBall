@@ -14,17 +14,17 @@ public class AI : Actor
         enCharacter_Penguin
     }
 
-    [SerializeField, Header("AIƒLƒƒƒ‰ƒNƒ^[‚Ì–¼‘O")]
+    [SerializeField, Header("AIï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½Ì–ï¿½ï¿½O")]
     EnAICharacter m_enAiCharacter;
     public EnAICharacter GetAICharactor()
     {
         return m_enAiCharacter;
     }
 
-    [SerializeField, Header("ˆÚ“®‘¬“x")]
+    [SerializeField, Header("ï¿½Ú“ï¿½ï¿½ï¿½ï¿½x")]
     float m_moveSpeed;
 
-    [Header("ƒWƒƒƒ“ƒv—Í")]
+    [Header("ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½")]
     public float m_jumpPower = 0.0f;
 
     NavMeshAgent m_navMeshAgent;
@@ -44,13 +44,13 @@ public class AI : Actor
         m_nowIndex = index;
     }
 
-    // ‰Šú”¼Œa•Û‘¶
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½Û‘ï¿½
     float m_defRadius = 0.0f;
 
-    // Å‰‚ÉÀs
+    // ï¿½Åï¿½ï¿½Éï¿½ï¿½s
     override protected void GetStartInformation()
     {
-        // ƒG[ƒWƒFƒ“ƒg‚Ì‘å‚«‚³‚ğ•Û‘¶
+        // ï¿½Gï¿½[ï¿½Wï¿½Fï¿½ï¿½ï¿½gï¿½Ì‘å‚«ï¿½ï¿½ï¿½ï¿½Û‘ï¿½
         m_defRadius = m_navMeshAgent.radius;
     }
 
@@ -66,12 +66,15 @@ public class AI : Actor
 
     void Update()
     {
-       
+        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
+        {
+            return;
+        }
 
-        //ƒWƒƒƒ“ƒv
+        //ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½v
         Jamp();
 
-        // ”¼ŒaXV
+        // ï¿½ï¿½ï¿½aï¿½Xï¿½V
         m_navMeshAgent.radius = m_defRadius + (transform.localScale.x * 0.001f);
 
         m_navMeshAgent.nextPosition = transform.position;
@@ -79,7 +82,7 @@ public class AI : Actor
 
     public Vector3 GetNextPosition()
     {
-        // ”O‚Ì‚½‚ßƒGƒ‰[–h~
+        // ï¿½Oï¿½Ì‚ï¿½ï¿½ßƒGï¿½ï¿½ï¿½[ï¿½hï¿½~
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
             m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
@@ -88,10 +91,10 @@ public class AI : Actor
         return m_navMeshAgent.path.corners[m_nowIndex];
     }
 
-    //AI‚ÌˆÚ“®ˆ—
+    //AIï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½
     void MoveAI()
     {
-        // ”O‚Ì‚½‚ßƒGƒ‰[–h~
+        // ï¿½Oï¿½Ì‚ï¿½ï¿½ßƒGï¿½ï¿½ï¿½[ï¿½hï¿½~
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
             m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
@@ -102,20 +105,20 @@ public class AI : Actor
         targetPosition.y = 0.0f;
         nowPosition.y = 0.0f;
 
-        // ‹——£ƒ`ƒFƒbƒN
+        // ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½N
         if (Vector3.Distance(nowPosition, targetPosition) < 20.0f)
         {
-            // ‚Â‚¢‚½‚Ì‚ÍÅI–Ú“I’n‚©‚Ç‚¤‚©
+            // ï¿½Â‚ï¿½ï¿½ï¿½ï¿½Ì‚ÍÅIï¿½Ú“Iï¿½nï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
             if (Vector3.Distance(nowPosition, m_navMeshAI.GetTargetPosition()) < 5.0f)
             {
-                // ÅI–Ú“I’n‚É‚Â‚«‚Ü‚µ‚½I
+                // ï¿½ÅIï¿½Ú“Iï¿½nï¿½É‚Â‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½I
 
             }
             else
             {
-                // –Ú“I’n‚É‚Â‚¢‚½‚Ì‚ÅÄİ’è
+                // ï¿½Ú“Iï¿½nï¿½É‚Â‚ï¿½ï¿½ï¿½ï¿½Ì‚ÅÄİ’ï¿½
                 m_nowIndex++;
-                // ƒGƒ‰[–h~
+                // ï¿½Gï¿½ï¿½ï¿½[ï¿½hï¿½~
                 if(m_navMeshAgent.path.corners.Length < m_nowIndex)
                 {
                     targetPosition = m_navMeshAgent.path.corners[m_nowIndex];
@@ -127,10 +130,10 @@ public class AI : Actor
             }
         }
 
-        //–Ú“I’n
+        //ï¿½Ú“Iï¿½n
         //Debug.Log(targetPosition);
 
-        // ˆÚ“®ˆ—
+        // ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
         Vector3 diff = targetPosition - transform.position;
 
         diff = diff * m_moveSpeed * Time.deltaTime;
@@ -150,12 +153,12 @@ public class AI : Actor
                 m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
 
                 GameManager.PlaySE3D(
-                    m_jamp,
+                    m_jump,
                     transform.position,
                     m_jumpMinRange,
                     m_jumpMaxRange,
                     m_jumpVolume
-                   );
+                    );
             }
         }
 
