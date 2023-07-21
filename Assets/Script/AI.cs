@@ -66,16 +66,13 @@ public class AI : Actor
 
     void Update()
     {
-        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
-        {
-            return;
-        }
+       
 
         //ジャンプ
         Jamp();
 
         // 半径更新
-        m_navMeshAgent.radius = m_defRadius + (transform.localScale.x * 0.02f);
+        m_navMeshAgent.radius = m_defRadius + (transform.localScale.x * 0.001f);
 
         m_navMeshAgent.nextPosition = transform.position;
     }
@@ -106,7 +103,7 @@ public class AI : Actor
         nowPosition.y = 0.0f;
 
         // 距離チェック
-        if (Vector3.Distance(nowPosition, targetPosition) < 10.0f)
+        if (Vector3.Distance(nowPosition, targetPosition) < 20.0f)
         {
             // ついたのは最終目的地かどうか
             if (Vector3.Distance(nowPosition, m_navMeshAI.GetTargetPosition()) < 5.0f)
@@ -139,7 +136,7 @@ public class AI : Actor
         diff = diff * m_moveSpeed * Time.deltaTime;
         diff.y = 0.0f;
         //Debug.Log("Move:" + diff);
-        m_rigidbody.AddForce(diff, ForceMode.Acceleration);
+        m_rigidbody.AddForce(diff);
         m_navMeshAgent.nextPosition = transform.position;
     }
 
@@ -151,13 +148,6 @@ public class AI : Actor
             if(m_isJumpFlag == true)
             {
                 m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
-                GameManager.PlaySE3D(
-                    m_jamp,
-                    transform.position,
-                    m_jumpMinRange,
-                    m_jumpMaxRange,
-                    m_jumpVolume
-                    );
             }
         }
 

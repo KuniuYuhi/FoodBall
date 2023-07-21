@@ -399,10 +399,14 @@ MonoBehaviour:
   m_rankNumText: {fileID: 1464688211}
   m_rankText: {fileID: 2140521046}
   m_scoreText: {fileID: 914336027}
-  m_1stOutLineColor: {r: 0, g: 0, b: 0.58431375, a: 1}
-  m_2ndOutLineColor: {r: 0, g: 0, b: 0, a: 1}
-  m_3rdOutLineColor: {r: 0.23581344, g: 0.4277927, b: 0.6037736, a: 1}
-  m_4thOutLineColor: {r: 0, g: 0, b: 0, a: 1}
+  m_1stColor: {r: 1, g: 0.9402477, b: 0.66415095, a: 1}
+  m_2ndColor: {r: 0.66415095, g: 0.88873714, b: 1, a: 1}
+  m_3rdColor: {r: 0.61310565, g: 0.9811321, b: 0.5775721, a: 1}
+  m_4thColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+  m_1stOutLineColor: {r: 0.7924528, g: 0.6625921, b: 0.23474543, a: 1}
+  m_2ndOutLineColor: {r: 0.12061229, g: 0.5951143, b: 0.8301887, a: 1}
+  m_3rdOutLineColor: {r: 0.18541032, g: 0.6603774, b: 0.13955142, a: 1}
+  m_4thOutLineColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
   m_enemyUI:
   - {fileID: 1492404200}
   - {fileID: 1469527873}
