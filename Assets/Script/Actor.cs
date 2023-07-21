@@ -11,7 +11,7 @@ public class Actor : MonoBehaviour
     Vector3 size = Vector3.one;
 
     [SerializeField, Header("拡大する量")]
-    const float m_scaleUp = 1.05f;
+    const float m_scaleUp = 1.035f;
     //キャッシュ
     protected Rigidbody m_rigidbody;
     protected GameObject m_gameCameraObj;
@@ -53,10 +53,15 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// サイズを大きくする
     /// </summary>
-    protected void SizeUp()
+    protected void SizeUp(int point)
     {
-        if(transform.localScale.x<transform.localScale.x*2.0f)
+        for (int i = 0; i < point; i++)
         {
+            if (transform.localScale.x > 300.0f)
+            {
+                return;
+            }
+
             transform.localScale *= m_scaleUp;
         }
         
@@ -84,10 +89,10 @@ public class Actor : MonoBehaviour
             Food m_food=other.GetComponent<Food>();
             //食べた量を加算する
             eatFoods+= m_food.GetPoint();
-            m_rigidbody.mass = (1.0f + (eatFoods * 0.05f));
-            m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 2.5f);
+            m_rigidbody.mass = (1.0f + (eatFoods * 0.01f));
+            m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 1.4f);
             //モデルを大きくする
-            SizeUp();
+            SizeUp(m_food.GetPoint());
 
             //食べ物を消す
             Destroy(other.gameObject);

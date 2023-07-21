@@ -32,14 +32,10 @@ public class GameCamera : MonoBehaviour
     void Update()
     {
         // 上下
-        float Up_rot = 0.5f;
-        if (Input.GetKey(KeyCode.UpArrow))
+        float Up_rot = Time.deltaTime * RotSpeed;
+        if (Input.GetAxisRaw("Vertical2") != 0.0f)
         {
-            Up_rot = -RotSpeed;
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            Up_rot = RotSpeed;
+            Up_rot *= -Input.GetAxisRaw("Vertical2");
         }
         else
         {
@@ -57,21 +53,16 @@ public class GameCamera : MonoBehaviour
 
 
         // 左右
-        float Left_rot;
-        if (Input.GetKey(KeyCode.LeftArrow))
+        float Left_rot = Time.deltaTime * RotSpeed;
+        if (Input.GetAxisRaw("Horizontal2") != 0.0f)
         {
-            Left_rot = -RotSpeed;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            Left_rot = RotSpeed;
+            Left_rot *= Input.GetAxisRaw("Horizontal2");
         }
         else
         {
             Left_rot = 0.0f;
         }
         transform.RotateAround(m_player.transform.position, Vector3.up, Left_rot);
-
 
         // 座標計算
         // カメラの前方向を使って移動量を計算
@@ -82,6 +73,6 @@ public class GameCamera : MonoBehaviour
         transform.position = m_player.transform.position + cameraMove;
 
         // 距離を調整
-        CameraRange = m_defRange + ((m_playerC.GetEatFoods()) / 5.0f);
+        CameraRange = m_defRange + ((m_playerC.transform.localScale.x) * 1.0f);
     }
 }
