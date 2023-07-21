@@ -148,6 +148,13 @@ public class AI : Actor
             if(m_isJumpFlag == true)
             {
                 m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
+                GameManager.PlaySE3D(
+                    m_jamp,
+                    transform.position,
+                    m_jumpMinRange,
+                    m_jumpMaxRange,
+                    m_jumpVolume
+                    );
             }
         }
 

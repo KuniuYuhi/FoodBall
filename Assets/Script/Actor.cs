@@ -12,6 +12,28 @@ public class Actor : MonoBehaviour
 
     [SerializeField, Header("拡大する量")]
     const float m_scaleUp = 1.035f;
+
+    [SerializeField]
+    protected float m_eatMinRange = 100.0f;
+    [SerializeField]
+    protected float m_eatMaxRange = 200.0f;
+    [SerializeField]
+    protected float m_jumpMinRange = 50.0f;
+    [SerializeField]
+    protected float m_jumpMaxRange = 100.0f;
+
+
+    [SerializeField, Header("音量")]
+    public int m_eatVolume = 13;
+    [SerializeField]
+    public int m_jumpVolume = 6;
+
+
+    [SerializeField, Header("効果音")]
+    protected AudioClip m_jamp;
+    [SerializeField]
+    protected AudioClip m_eatFood;
+
     //キャッシュ
     protected Rigidbody m_rigidbody;
     protected GameObject m_gameCameraObj;
@@ -106,6 +128,15 @@ public class Actor : MonoBehaviour
 
             //食べ物を食べたのでtrueにする
             SetGetFoodFlag(true);
+
+            //効果音再生
+            GameManager.PlaySE3D(
+                    m_eatFood,
+                    transform.position,
+                    m_eatMinRange,
+                    m_eatMaxRange,
+                    m_eatVolume
+                    );
         }
 
     }
