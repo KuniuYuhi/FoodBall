@@ -53,10 +53,15 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// サイズを大きくする
     /// </summary>
-    protected void SizeUp()
+    protected void SizeUp(int point)
     {
-        if(transform.localScale.x<transform.localScale.x*2.0f)
+        for (int i = 0; i < point; i++)
         {
+            if (transform.localScale.x > transform.localScale.x * 3.0f)
+            {
+                return;
+            }
+
             transform.localScale *= m_scaleUp;
         }
         
@@ -87,7 +92,7 @@ public class Actor : MonoBehaviour
             m_rigidbody.mass = (1.0f + (eatFoods * 0.04f));
             m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 2.0f);
             //モデルを大きくする
-            SizeUp();
+            SizeUp(m_food.GetPoint());
 
             //食べ物を消す
             Destroy(other.gameObject);
