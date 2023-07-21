@@ -25,8 +25,8 @@ public class FadeScene : MonoBehaviour
 
     // 装飾
     bool m_isAcc = false;
-    List<Image> m_accImages;
-    List<TextMeshProUGUI> m_accTMpro;
+    List<Image> m_accImages = new List<Image>();
+    List<TextMeshProUGUI> m_accTMpro = new List<TextMeshProUGUI>();
 
     /// <summary>
     /// フェード開始
