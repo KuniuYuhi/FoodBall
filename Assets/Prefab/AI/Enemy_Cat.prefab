@@ -88,8 +88,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eatFoods: 0
   size: {x: 1, y: 1, z: 1}
+  m_eatFood: {fileID: 8300000, guid: 33514f0624685394cad7472a718f8f4f, type: 3}
+  m_jump: {fileID: 8300000, guid: 5f8e52449821a0045bc0fe8d6848bc20, type: 3}
+  m_eatVolume: 13
+  m_jumpVolume: 5
+  m_eatMinRange: 100
+  m_eatMaxRange: 200
+  m_jumpMinRange: 50
+  m_jumpMaxRange: 80
   m_enAiCharacter: 0
   m_moveSpeed: 20
+  m_jumpPower: 0
 --- !u!1 &5748129308167913528
 GameObject:
   m_ObjectHideFlags: 0

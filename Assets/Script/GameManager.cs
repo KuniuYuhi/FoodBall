@@ -91,6 +91,11 @@ public class GameManager : MonoBehaviour
     [SerializeField, Header("Pause用キャンバス")]
     GameObject PauseCanvas;
 
+    [SerializeField]
+    AudioSource m_bgm;
+
+    public int m_volume = 8;
+
     // 現在のタイマー
     int m_timerMinit;
     public int GetMinit()
@@ -120,6 +125,9 @@ public class GameManager : MonoBehaviour
         await UniTask.Delay(6400);
         ReadyCanvas.SetActive(false);
         m_gameState = GameState.enGameMode_Play;
+
+        //BGM再生
+        m_bgm.Play();
     }
 
     void Update()
@@ -184,6 +192,9 @@ public class GameManager : MonoBehaviour
     bool m_gameEnd = false;
     async void GameEnd()
     {
+        //BGM停止
+        m_bgm.Stop();
+
         m_gameState = GameState.enGameMode_End;
         EndCanvas.SetActive(true);
         m_gameEnd = true;
