@@ -11,6 +11,7 @@ public class NavMeshAI : MonoBehaviour
     [SerializeField]
     GameObject m_targetEnemy;
     NavMeshAgent m_navMeshAgent;
+    GameManager m_gameManager;
     AI m_targetAI;
 
     Vector3 m_nowTargetPosition = Vector3.zero;
@@ -37,6 +38,8 @@ public class NavMeshAI : MonoBehaviour
     float m_counter = 0.0f;
 
     GameObject targetObject;
+
+    Vector3 m_oldposition = Vector3.zero;
     
     [Header("ターゲットが被った時のカウントの上限")]
     public const int m_maxEvalCountLimit = 3;
@@ -65,10 +68,53 @@ public class NavMeshAI : MonoBehaviour
        
     }
 
+    private void Start()
+    {
+        m_gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+    }
+
     void Update()
     {
-        
+
+        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
+        {
+            return;
+        }
+
+        Stay();
+
+
+
         m_navMeshAgent.nextPosition = m_targetEnemy.transform.position;
+
+        m_oldposition = transform.position;
+    }
+
+    void Stay()
+    {
+        //しばらくその場にいたなら
+        Vector3 a = transform.position - m_targetAI.GetNextPosition();
+        Vector3 b = m_oldposition - m_targetAI.GetNextPosition();
+        float A = a.magnitude;
+        float B = b.magnitude;
+        float C = A - B;
+        if(C<0)
+        {
+            C *= -1;
+        }
+
+        if (C < 1.0f)
+        {
+            m_counter += Time.deltaTime;
+            if (m_counter > 3.0f)
+            {
+                SetRamdomTarget();
+            }
+        }
+        else
+        {
+            m_counter = 0.0f;
+        }
     }
 
     public void SetTarget()
@@ -113,22 +159,6 @@ public class NavMeshAI : MonoBehaviour
     /// </summary>
     void DicideTarget()
     {
-        //しばらくその場にいたなら
-        Vector3 a = transform.position - m_targetAI.GetNextPosition();
-        float A = a.magnitude;
-
-        if (A < 5.0f)
-        {
-            m_counter += Time.deltaTime;
-            if (m_counter > 3.0f)
-            {
-                SetRamdomTarget();
-            }
-        }
-        else
-        {
-            m_counter = 0.0f;
-        }
 
         //食べ物を検索
         //食べ物があったら
@@ -268,7 +298,7 @@ public class NavMeshAI : MonoBehaviour
     {
         Vector3 ramdompos = UnityEngine.Random.insideUnitSphere;
 
-        ramdompos *= 200.0f;
+        ramdompos *= 70.0f;
 
         return ramdompos;
     }
