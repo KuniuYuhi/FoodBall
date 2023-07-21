@@ -63,6 +63,11 @@ public class Player : Actor
     //à⁄ìÆèàóù
     private void Move()
     {
+        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
+        {
+            return;
+        }
+
         Vector3 m_playerMove = Vector3.zero;
         Vector3 m_stickL = Vector3.zero;
         m_stickL.z = Input.GetAxis("Vertical");
@@ -87,7 +92,12 @@ public class Player : Actor
 
     private void Jump()
     {
-        if(Input.GetKeyDown("joystick button 0")||Input.GetKeyDown(KeyCode.Space))
+        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown("joystick button 0")||Input.GetKeyDown(KeyCode.Space))
         {
             if(m_isJumpFlag)
             {

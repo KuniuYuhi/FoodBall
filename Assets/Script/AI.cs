@@ -56,6 +56,11 @@ public class AI : Actor
 
     private void FixedUpdate()
     {
+        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
+        {
+            return;
+        }
+
         MoveAI();
     }
 
@@ -67,7 +72,7 @@ public class AI : Actor
         Jamp();
 
         // 半径更新
-        m_navMeshAgent.radius = m_defRadius + (transform.localScale.x * 0.01f);
+        m_navMeshAgent.radius = m_defRadius + (transform.localScale.x * 0.001f);
 
         m_navMeshAgent.nextPosition = transform.position;
     }
@@ -90,7 +95,6 @@ public class AI : Actor
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
             m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
-            return;
         }
 
         Vector3 targetPosition = m_navMeshAgent.path.corners[m_nowIndex];
@@ -106,7 +110,6 @@ public class AI : Actor
             {
                 // 最終目的地につきました！
 
-                return;
             }
             else
             {

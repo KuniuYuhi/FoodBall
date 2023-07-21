@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         return fadeObj;
     }
 
-    enum GameState
+    public enum GameState
     {
         enGameMode_Ready,   // カウントダウン
         enGameMode_Play,    // プレイ中
@@ -75,6 +75,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, Header("ゲームの状態")]
     GameState m_gameState = GameState.enGameMode_Play;
+    public GameState GetGameMode()
+    {
+        return m_gameState;
+    }
 
     // タイマー
     [SerializeField, Header("デフォルト制限時間（分）")]
@@ -84,6 +88,8 @@ public class GameManager : MonoBehaviour
     GameObject ReadyCanvas;
     [SerializeField, Header("End用キャンバス")]
     GameObject EndCanvas;
+    [SerializeField, Header("Pause用キャンバス")]
+    GameObject PauseCanvas;
 
     // 現在のタイマー
     int m_timerMinit;
@@ -108,6 +114,7 @@ public class GameManager : MonoBehaviour
 
         ReadyCanvas.SetActive(true);
         EndCanvas.SetActive(false);
+        PauseCanvas.SetActive(false);
 
         //待ってから開始
         await UniTask.Delay(6400);
@@ -142,6 +149,14 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
+                // ポーズ開始
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    m_gameState = GameState.enGameMode_Pause;
+                    Time.timeScale = 0.0f;
+                    PauseCanvas.SetActive(true);
+                }
+
                 break;
             case GameState.enGameMode_End:
                 if (m_gameEnd == false)
@@ -152,6 +167,14 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.enGameMode_Pause:
+
+                // ポーズ解除
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    m_gameState = GameState.enGameMode_Play;
+                    Time.timeScale = 1.0f;
+                    PauseCanvas.SetActive(false);
+                }
 
                 break;
         }
