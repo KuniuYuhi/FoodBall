@@ -66,7 +66,10 @@ public class AI : Actor
 
     void Update()
     {
-       
+        if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
+        {
+            return;
+        }
 
         //ƒWƒƒƒ“ƒv
         Jamp();
