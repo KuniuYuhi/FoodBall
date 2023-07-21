@@ -12,6 +12,15 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI m_scoreText;
 
+    [SerializeField]
+    Color m_1stOutLineColor;
+    [SerializeField]
+    Color m_2ndOutLineColor;
+    [SerializeField]
+    Color m_3rdOutLineColor;
+    [SerializeField]
+    Color m_4thOutLineColor;
+
     [Header("------------------")]
     // ミニUI
     [SerializeField, Tooltip("Cat->Duck->Penguin\nAI区別用列挙型の順番")]
@@ -21,6 +30,14 @@ public class UI_Manager : MonoBehaviour
     Camera m_mainCamera;
     GameObject[] m_enemys;
     Player m_player;
+
+    enum EnRankColor: uint
+    {
+        en1st = 0xEABF00FF,
+        en2nd = 0xC9C9C9FF,
+        en3rd = 0xC96A18FF,
+        en4th = 0x0000FFFF
+    }
 
     void Awake()
     {
@@ -63,6 +80,9 @@ public class UI_Manager : MonoBehaviour
         
         // ステータス更新
         StatusUpdate();
+
+        //プレイヤーの順位更新
+        PlayerRank();
     }
 
     void StatusUpdate()
@@ -116,6 +136,58 @@ public class UI_Manager : MonoBehaviour
                 "" + targetAI.GetEatFoods() + "pt";
 
         }
+
+    }
+
+    void PlayerRank()
+    {
+        //プレイヤーの食べ物を食べた数
+        int playerEatFoods = m_player.GetEatFoods();
+        int PlayerRank = 4;
+
+        for(int i=0;i<m_enemys.Length;i++)
+        {
+            if(m_enemys[i].GetComponent<AI>().GetEatFoods()< playerEatFoods)
+            {
+                PlayerRank--;
+            }
+
+        }
+
+        switch(PlayerRank)
+        {
+            case 1:
+                m_rankNumText.text = $"<color=#{EnRankColor.en1st:X}>1";
+                m_rankText.text = $"<color=#{EnRankColor.en1st:X}>st";
+                m_rankNumText.color = m_1stOutLineColor;
+                m_rankText.color = m_1stOutLineColor;
+                break;
+            case 2:
+                m_rankNumText.text = $"<color=#{EnRankColor.en2nd:X}>2";
+                m_rankText.text = $"<color=#{EnRankColor.en2nd:X}>nd";
+                m_rankNumText.color = m_2ndOutLineColor;
+                m_rankText.color = m_2ndOutLineColor;
+                break;
+            case 3:
+                m_rankNumText.text = $"<color=#{EnRankColor.en3rd:X}>3";
+                m_rankText.text = $"<color=#{EnRankColor.en3rd:X}>rd";
+                m_rankNumText.color = m_3rdOutLineColor;
+                m_rankText.color = m_3rdOutLineColor;
+                break;
+            case 4:
+                m_rankNumText.text = $"<color=#{EnRankColor.en4th:X}>4";
+                //m_rankNumText.outlineColor = new Color(1, 0, 0, 1);
+               
+               m_rankText.text = $"<color=#{EnRankColor.en4th:X}>th";
+
+                m_rankNumText.color = m_4thOutLineColor;
+                m_rankText.color= m_4thOutLineColor;
+                break;
+            default:
+                break;
+        }
+
+        
 
     }
 
