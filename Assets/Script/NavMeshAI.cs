@@ -70,7 +70,7 @@ public class NavMeshAI : MonoBehaviour
 
     private void Start()
     {
-        m_gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        m_gameManager = GameObject.FindGameObjectWithTag("BallController").GetComponent<GameManager>();
     }
 
     void Update()
@@ -279,7 +279,7 @@ public class NavMeshAI : MonoBehaviour
         }
 
 
-        Debug.Log(m_eval[m_maxEvalNumber]);
+        //Debug.Log(m_eval[m_maxEvalNumber]);
 
         return m_food[m_maxEvalNumber];
     }

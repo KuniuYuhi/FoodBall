@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class Player : Actor
 {
-    //�p�����[�^
-    //�v���C���[�̈ړ����x
-    [SerializeField,Header("�v���C���[�̈ړ����x")]
+    [SerializeField,Header("移動速度")]
     float m_moveSpeed = 0.0f;
-    [SerializeField, Header("�v���C���[�̃W�����v��")]
+    [SerializeField, Header("ジャンプ力")]
     float m_jumpPower = 0.0f;
-
-    
-
 
     GameObject m_mainCamera;
 
-    //�v���C���[�̈ړ����x�ݒ�
+    //移動速度を設定
     public void SetMoveSpeed(float speed)
     {
         m_moveSpeed = speed;
@@ -28,26 +23,23 @@ public class Player : Actor
         return m_moveSpeed;
     }
 
-    //�v���C���[�̃W�����v�ʐݒ�
+    //ジャンプ力を設定
     public void SetJumpPower(float power)
     {
         m_jumpPower = power;
     }
 
-    //�v���C���[�̃W�����v�ʂ̎擾
+    //ジャンプ力を取得
     public float GetJumpPower()
     {
         return m_jumpPower;
     }
 
-
-
-
     protected override void GetStartInformation()
     {
         base.GetStartInformation();
 
-        // ���C���J�����̃Q�[���I�u�W�F�N�g��擾����
+        // カメラを記憶
         m_mainCamera = Camera.main.gameObject;
     }
 
@@ -59,8 +51,14 @@ public class Player : Actor
     private void Update()
     {
         Jump();
+
+        // 落下対策
+        if (transform.position.y <= 650.0f)
+        {
+            transform.position = m_defPos;
+        }
     }
-    //�ړ�����
+    //移動
     private void Move()
     {
         if (m_gameManager.GetGameMode() != GameManager.GameState.enGameMode_Play)
@@ -68,6 +66,7 @@ public class Player : Actor
             return;
         }
 
+        // カメラを考慮した移動
         Vector3 m_playerMove = Vector3.zero;
         Vector3 m_stickL = Vector3.zero;
         m_stickL.z = Input.GetAxis("Vertical");
@@ -79,10 +78,8 @@ public class Player : Actor
         right.y = 0.0f;
         right *= m_stickL.x;
         forward *= m_stickL.z;
-        // �ړ����x�ɏ�L�Ōv�Z�����x�N�g������Z����
         m_playerMove += right + forward;
 
-        //�v���C���[�̑��x��ݒ肷�邱�Ƃňړ��ł���
         m_playerMove = (m_playerMove * m_moveSpeed * Time.deltaTime);
         m_playerMove.y = 0.0f;
         m_rigidbody.AddForce(m_playerMove);

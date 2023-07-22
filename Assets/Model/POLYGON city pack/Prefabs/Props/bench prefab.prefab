@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23729058636220162}
   - component: {fileID: 65738914748616680}
   - component: {fileID: 5634921478835304437}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 1, z: 0}
   m_effectScale: 20
   m_breakPoint: 25
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1228088659953116
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4488567837450824}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: bench prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

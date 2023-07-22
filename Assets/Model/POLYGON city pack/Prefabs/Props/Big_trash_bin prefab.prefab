@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33709613819677734}
   - component: {fileID: 23538034704291556}
   - component: {fileID: 64379194597998066}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: door 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4884130492571914}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Big_trash_bin prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 33270614951584920}
   - component: {fileID: 23274287443516918}
   - component: {fileID: 64518191158647524}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: door 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 23550363612717352}
   - component: {fileID: 64148542245802572}
   - component: {fileID: 3911112649225891105}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Big_trash_bin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,3 +346,6 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 2, z: 0}
   m_effectScale: 20
   m_breakPoint: 20
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18

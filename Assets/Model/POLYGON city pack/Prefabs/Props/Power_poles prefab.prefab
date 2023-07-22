@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4267077966516242}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Power_poles prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 23455444179275346}
   - component: {fileID: 64873564767777878}
   - component: {fileID: 2305898623989969732}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Power_poles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,3 +148,6 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 8, z: 0}
   m_effectScale: 20
   m_breakPoint: 40
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18

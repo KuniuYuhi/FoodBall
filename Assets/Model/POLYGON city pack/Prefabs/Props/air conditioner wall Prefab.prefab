@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23471972044019168}
   - component: {fileID: 65298540870518820}
   - component: {fileID: 238079333621963238}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: air conditioner wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 0, z: 0}
   m_effectScale: 6
   m_breakPoint: 10
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1770882891172268
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4468589885252268}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: air conditioner wall Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

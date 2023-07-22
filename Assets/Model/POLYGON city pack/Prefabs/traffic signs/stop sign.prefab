@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4726755904831600}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: stop sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 23319005079194412}
   - component: {fileID: 64946957655332438}
   - component: {fileID: 253816220809565982}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: sign cycle form
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,3 +148,6 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 3, z: 0}
   m_effectScale: 10
   m_breakPoint: 10
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18

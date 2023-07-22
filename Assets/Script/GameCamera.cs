@@ -18,12 +18,15 @@ public class GameCamera : MonoBehaviour
     private float m_nowX_Rot = 0.0f;
     float m_defRange;
 
+    [SerializeField]
+    bool m_springCamera;
+
     void Start()
     {
         // Playerタグがついたオブジェクトを探す
-        m_player = GameObject.FindGameObjectWithTag("Player");
+        m_player = GameObject.FindGameObjectWithTag("BallPlayer");
         m_playerC = m_player.GetComponent<Player>();
-        m_gameManager = GameObject.FindGameObjectWithTag("GameController").
+        m_gameManager = GameObject.FindGameObjectWithTag("BallController").
             GetComponent<GameManager>();
 
         // 初期X軸の回転量を保存
@@ -100,6 +103,29 @@ public class GameCamera : MonoBehaviour
         // 距離を調整
         CameraRange = m_defRange + ((m_playerC.transform.localScale.x) * 1.0f);
 
+        // 埋まり対策
+        if (m_springCamera)
+        {
+            transform.position = WallCheck(m_player.transform.position, transform.position);
+        }
+    }
+
+    Vector3 WallCheck(Vector3 targetPosition, Vector3 desiredPosition)
+    {
+        RaycastHit wallHit;
+        Vector3 offset = targetPosition - desiredPosition;
+        offset = offset.normalized;
+        offset *= 10.0f;
+
+        if (Physics.Raycast(targetPosition, desiredPosition - targetPosition,
+            out wallHit, Vector3.Distance(targetPosition, desiredPosition)))
+        {
+            return wallHit.point + offset;
+        }
+        else
+        {
+            return desiredPosition;
+        }
     }
 
 

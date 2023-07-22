@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23611118630367938}
   - component: {fileID: 64110119354787584}
   - component: {fileID: 8417678057271539452}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: trashBag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 0, z: 0}
   m_effectScale: 14
   m_breakPoint: 20
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1394111307883294
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4631891537778504}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: trashBag prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567606340523442}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: phone booth prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 23494407516472106}
   - component: {fileID: 65300760832128482}
   - component: {fileID: 3036264953330430532}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: phone booth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,3 +147,6 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 4, z: 0}
   m_effectScale: 18
   m_breakPoint: 25
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18

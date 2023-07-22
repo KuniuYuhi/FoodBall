@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23500997157642992}
   - component: {fileID: 64677807859671562}
   - component: {fileID: 5547878594389754275}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BurgerSho_Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 12, z: 0}
   m_effectScale: 40
   m_breakPoint: 40
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1914549218023532
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4498040511848862}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BurgerSho_Sign prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

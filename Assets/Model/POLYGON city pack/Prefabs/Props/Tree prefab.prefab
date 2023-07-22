@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23497576139892800}
   - component: {fileID: 65569678045577254}
   - component: {fileID: 6040221981960848601}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tree 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,10 @@ MonoBehaviour:
     type: 3}
   m_effectOffset: {x: 0, y: 4, z: 0}
   m_effectScale: 14
-  m_breakPoint: 30
+  m_breakPoint: 25
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1276862051916332
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4379673244704792}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tree prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23529197670284860}
   - component: {fileID: 64781926003187360}
   - component: {fileID: 7474133915170146371}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: streetprop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 1, z: 0}
   m_effectScale: 10
   m_breakPoint: 10
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1975453287580814
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4151046688189116}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: streetprop prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4128071732523052}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Stone 1 Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 23379582426746500}
   - component: {fileID: 64825962136085880}
   - component: {fileID: 4800411837622253666}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: stone 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,3 +148,6 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 0, z: 0}
   m_effectScale: 14
   m_breakPoint: 20
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18

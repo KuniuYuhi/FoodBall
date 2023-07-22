@@ -4,49 +4,46 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
-    [SerializeField,Header("�H�ו���H�ׂ���")]
+    [SerializeField,Header("食べた数")]
     int eatFoods = 0;
 
-    [SerializeField, Header("���g�̃T�C�Y")]
-    Vector3 size = Vector3.one;
-
-    [SerializeField, Header("�g�傷���")]
+    // 拡大率
     const float m_scaleUp = 1.035f;
-    //�L���b�V��
+
+    // 初期座標
+    protected Vector3 m_defPos;
+
+    //キャッシュ
     protected Rigidbody m_rigidbody;
     protected GameObject m_gameCameraObj;
     protected GameManager m_gameManager;
 
     [SerializeField]
-    protected float m_eatMinRange = 100.0f;
+    protected float m_eatMinRange = 300.0f;
     [SerializeField]
-    protected float m_eatMaxRange = 200.0f;
+    protected float m_eatMaxRange = 400.0f;
     [SerializeField]
-    protected float m_jumpMinRange = 50.0f;
+    protected float m_jumpMinRange = 100.0f;
     [SerializeField]
-    protected float m_jumpMaxRange = 100.0f;
+    protected float m_jumpMaxRange = 200.0f;
 
-    [SerializeField, Header("����")]
+    [SerializeField, Header("音量")]
     public int m_eatVolume = 13;
     [SerializeField]
     public int m_jumpVolume = 6;
 
-    [SerializeField, Header("���ʉ�")]
-    protected AudioClip m_jamp;
+    [SerializeField, Header("効果音")]
+    protected AudioClip m_jump;
     [SerializeField]
     protected AudioClip m_eatFood;
 
-    //�W�����v�\���ǂ���
+    [SerializeField,Header("食べる音を2Dサウンドにする")]
+    bool m_eatSE2D = false;
+
     protected bool m_isJumpFlag = true;
     virtual protected void GetStartInformation(){}
 
-    //�H�ו���l���������ǂ����BAI�p
     bool m_getFoodFlag = false;
-
-   
-    [SerializeField]
-    protected AudioClip m_jump;
-
 
     public void SetGetFoodFlag(bool flag)
     {
@@ -60,28 +57,22 @@ public class Actor : MonoBehaviour
 
     private void Start()
     {
-        //�K�v�ȏ���擾
+        //初期化
         m_rigidbody = GetComponent<Rigidbody>();
         m_gameCameraObj = Camera.main.gameObject;
-        m_gameManager = GameObject.FindGameObjectWithTag("GameController").
+        m_gameManager = GameObject.FindGameObjectWithTag("BallController").
             GetComponent<GameManager>();
+
+        m_defPos = transform.position;
 
         GetStartInformation();
     }
 
-
-    /// <summary>
-    /// �H�ׂ��H�ו��̐���Ԃ�
-    /// </summary>
-    /// <returns></returns>
     public int GetEatFoods()
     {
         return eatFoods;
     }
 
-    /// <summary>
-    /// �T�C�Y��傫������
-    /// </summary>
     protected void SizeUp(int point)
     {
         for (int i = 0; i < point; i++)
@@ -96,9 +87,6 @@ public class Actor : MonoBehaviour
         
     }
 
-    /// <summary>
-    /// �T�C�Y�����������
-    /// </summary>
     protected void SizeDown()
     {
         transform.localScale *= m_scaleUp;
@@ -109,45 +97,48 @@ public class Actor : MonoBehaviour
 
     }
 
-
     protected void OnTriggerEnter(Collider other)
     {
-        //������g�ƏՓ˂�����I�u�W�F�N�g�̃^�O���H�ו���������
         if(other.CompareTag("Food"))
         {
             Food m_food=other.GetComponent<Food>();
-            //�H�ׂ��ʂ���Z����
             eatFoods+= m_food.GetPoint();
             m_rigidbody.mass = (1.0f + (eatFoods * 0.01f));
             m_rigidbody.mass = Mathf.Min(m_rigidbody.mass, 1.4f);
-            //���f����傫������
             SizeUp(m_food.GetPoint());
 
-            //�H�ו������
             Destroy(other.gameObject);
 
-            //�H�ו���H�ׂ��̂ł����ɐV�����^�[�Q�b�g����߂�
             SetTarget();
 
-            //�H�ו���H�ׂ��̂�true�ɂ���
             SetGetFoodFlag(true);
 
-            GameManager.PlaySE3D(
-                m_eatFood,
-                transform.position,
-                m_eatMinRange,
-                m_eatMaxRange,
-                m_eatVolume
-                );
+            if (m_eatSE2D)
+            {
+                GameManager.PlaySE(m_eatFood, m_eatVolume);
+            }
+            else
+            {
+                GameManager.PlaySE3D(
+                    m_eatFood,
+                    transform.position,
+                    m_eatMinRange,
+                    m_eatMaxRange,
+                    m_eatVolume
+                    );
+            }
+
         }
 
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("BallPlayer"))
         {
             Vector3 Backlash = collision.gameObject.transform.position - transform.position;
-            Backlash.y += 50.0f;
+            Backlash = Backlash.normalized;
+            Backlash *= 30.0f;
+            Backlash.y = 20.0f;
 
             collision.gameObject.GetComponent<Rigidbody>().AddForce(Backlash, ForceMode.Impulse);
             m_rigidbody.AddForce(-Backlash, ForceMode.Impulse);

@@ -1434,7 +1434,7 @@ GameObject:
   - component: {fileID: 1455160144146029890}
   m_Layer: 0
   m_Name: sheep
-  m_TagString: Player
+  m_TagString: BallPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1505,5 +1505,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eatFoods: 0
-  size: {x: 1, y: 1, z: 1}
+  m_eatMinRange: 100
+  m_eatMaxRange: 200
+  m_jumpMinRange: 50
+  m_jumpMaxRange: 100
+  m_eatVolume: 13
+  m_jumpVolume: 6
+  m_jump: {fileID: 8300000, guid: 5f8e52449821a0045bc0fe8d6848bc20, type: 3}
+  m_eatFood: {fileID: 8300000, guid: 33514f0624685394cad7472a718f8f4f, type: 3}
   m_moveSpeed: 1000
+  m_jumpPower: 0

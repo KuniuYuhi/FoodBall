@@ -51,11 +51,11 @@ public class UI_Manager : MonoBehaviour
     void Awake()
     {
         // ゲームマネージャーを探す
-        m_gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        m_gameManager = GameObject.FindGameObjectWithTag("BallController").GetComponent<GameManager>();
         // メインカメラを取得
         m_mainCamera = Camera.main;
         // プレイヤーを取得
-        m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        m_player = GameObject.FindGameObjectWithTag("BallPlayer").GetComponent<Player>();
         // 敵をまとめて取得
         m_enemys = GameObject.FindGameObjectsWithTag("Enemy");
 

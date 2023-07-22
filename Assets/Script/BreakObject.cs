@@ -16,9 +16,6 @@ public class BreakObject : MonoBehaviour
     [SerializeField, Header("破壊に必要な食べ物パワー")]
     int m_breakPoint;
 
-    [SerializeField, Header("効果音")]
-    AudioClip m_explosion;
-
     public float m_minRange=200;
     public float m_maxRange = 400;
 
@@ -26,7 +23,7 @@ public class BreakObject : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player") ||
+        if(collision.gameObject.CompareTag("BallPlayer") ||
             collision.gameObject.CompareTag("Enemy"))
         {
             Actor actor = collision.gameObject.GetComponent<Actor>();
@@ -41,8 +38,10 @@ public class BreakObject : MonoBehaviour
 
                 Destroy(gameObject);
 
+                AudioClip se = Instantiate((AudioClip)Resources.Load("explosion"));
+
                 GameManager.PlaySE3D(
-                    m_explosion,
+                    se,
                     transform.position,
                     m_minRange,
                     m_maxRange,

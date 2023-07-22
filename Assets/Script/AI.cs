@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UniRx;
-using System;
 
 public class AI : Actor
 {
@@ -14,17 +12,17 @@ public class AI : Actor
         enCharacter_Penguin
     }
 
-    [SerializeField, Header("AI�L�����N�^�[�̖��O")]
+    [SerializeField, Header("AIの種類")]
     EnAICharacter m_enAiCharacter;
     public EnAICharacter GetAICharactor()
     {
         return m_enAiCharacter;
     }
 
-    [SerializeField, Header("�ړ����x")]
+    [SerializeField, Header("移動速度")]
     float m_moveSpeed;
 
-    [Header("�W�����v��")]
+    [Header("ジャンプ力")]
     public float m_jumpPower = 0.0f;
 
     NavMeshAgent m_navMeshAgent;
@@ -44,13 +42,13 @@ public class AI : Actor
         m_nowIndex = index;
     }
 
-    // �������a�ۑ�
+    // デフォルトの半径
     float m_defRadius = 0.0f;
 
-    // �ŏ��Ɏ��s
+    // 初回実行
     override protected void GetStartInformation()
     {
-        // �G�[�W�F���g�̑傫����ۑ�
+        // 半径を記憶しておく
         m_defRadius = m_navMeshAgent.radius;
     }
 
@@ -71,18 +69,24 @@ public class AI : Actor
             return;
         }
 
-        //�W�����v
+        //ジャンプ
         Jamp();
 
-        // ���a�X�V
+        // 半径を更新
         m_navMeshAgent.radius = m_defRadius + (transform.localScale.x * 0.001f);
 
         m_navMeshAgent.nextPosition = transform.position;
+
+        // 落下対策
+        if (transform.position.y <= 650.0f)
+        {
+            transform.position = m_defPos;
+        }
     }
 
     public Vector3 GetNextPosition()
     {
-        // �O�̂��߃G���[�h�~
+        // 次の座標を返す
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
             m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
@@ -91,34 +95,33 @@ public class AI : Actor
         return m_navMeshAgent.path.corners[m_nowIndex];
     }
 
-    //AI�̈ړ�����
+    //AIの移動
     void MoveAI()
     {
-        // �O�̂��߃G���[�h�~
+        // 念のため
         if (m_navMeshAgent.path.corners.Length <= m_nowIndex)
         {
             m_nowIndex = Mathf.Min(m_nowIndex, m_navMeshAgent.path.corners.Length - 1);
         }
 
         Vector3 targetPosition = m_navMeshAgent.path.corners[m_nowIndex];
-        Vector3 nowPosition = transform.position;
+        Vector3 nowPosition = transform.GetChild(1).transform.position;     // Targetの座標
         targetPosition.y = 0.0f;
         nowPosition.y = 0.0f;
 
-        // �����`�F�b�N
+        // 距離チェック
         if (Vector3.Distance(nowPosition, targetPosition) < 20.0f)
         {
-            // �����͍̂ŏI�ړI�n���ǂ���
             if (Vector3.Distance(nowPosition, m_navMeshAI.GetTargetPosition()) < 5.0f)
             {
-                // �ŏI�ړI�n�ɂ��܂����I
+                // 最終目的地についた
 
             }
             else
             {
-                // �ړI�n�ɂ����̂ōĐݒ�
+                // 次の座標を見る
                 m_nowIndex++;
-                // �G���[�h�~
+                // エラー防止
                 if(m_navMeshAgent.path.corners.Length < m_nowIndex)
                 {
                     targetPosition = m_navMeshAgent.path.corners[m_nowIndex];
@@ -130,17 +133,14 @@ public class AI : Actor
             }
         }
 
-        //�ړI�n
-        //Debug.Log(targetPosition);
-
-        // �ړ�����
-        Vector3 diff = targetPosition - transform.position;
+        // 距離
+        Vector3 diff = targetPosition - transform.GetChild(1).transform.position;
 
         diff = diff * m_moveSpeed * Time.deltaTime;
         diff.y = 0.0f;
         //Debug.Log("Move:" + diff);
         m_rigidbody.AddForce(diff);
-        m_navMeshAgent.nextPosition = transform.position;
+        m_navMeshAgent.nextPosition = transform.GetChild(1).transform.position;
     }
 
     void Jamp()
@@ -152,13 +152,13 @@ public class AI : Actor
             {
                 m_rigidbody.AddForce(Vector3.up * m_jumpPower, ForceMode.Impulse);
 
-                GameManager.PlaySE3D(
-                    m_jump,
-                    transform.position,
-                    m_jumpMinRange,
-                    m_jumpMaxRange,
-                    m_jumpVolume
-                    );
+                //GameManager.PlaySE3D(
+                //    m_jump,
+                //    transform.position,
+                //    m_jumpMinRange,
+                //    m_jumpMaxRange,
+                //    m_jumpVolume
+                //    );
             }
         }
 

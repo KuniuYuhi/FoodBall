@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4923929284851280}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: parking meter prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 23729390461723732}
   - component: {fileID: 65737834551485358}
   - component: {fileID: 502327177605563647}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: parking meter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,3 +147,6 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 2, z: 0}
   m_effectScale: 10
   m_breakPoint: 10
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18

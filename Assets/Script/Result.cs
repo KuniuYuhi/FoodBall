@@ -29,6 +29,10 @@ public class Result : MonoBehaviour
     private GameData m_gameData;
 
     public GameObject[] m_resultCharacter = new GameObject[MAX_CHARACTER_NUMBER];
+
+    [SerializeField]
+    AudioClip m_enterSE;
+
     void Start()
     {
         m_gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameData>();
@@ -92,6 +96,7 @@ public class Result : MonoBehaviour
         if (Input.GetKeyDown("joystick button 0") || Input.GetKeyDown(KeyCode.Space))
         {
             // ÉVÅ[ÉìêÿÇËë÷Ç¶
+            GameManager.PlaySE(m_enterSE);
             Destroy(GameObject.FindGameObjectWithTag("GameData"));
             GameManager.SceneChange("Title");
         }

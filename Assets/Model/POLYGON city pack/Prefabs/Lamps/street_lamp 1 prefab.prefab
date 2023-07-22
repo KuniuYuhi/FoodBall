@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23038598729996872}
   - component: {fileID: 64408875093318114}
   - component: {fileID: 2763958129326373956}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: street_lamp 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,6 +118,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 4, z: 0}
   m_effectScale: 14
   m_breakPoint: 30
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1238479184688626
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +132,7 @@ GameObject:
   - component: {fileID: 4432622969494928}
   - component: {fileID: 108374899102069224}
   - component: {fileID: 8911588919155193748}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4759262865471542}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: street_lamp 1 prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

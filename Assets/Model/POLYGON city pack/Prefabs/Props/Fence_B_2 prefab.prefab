@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23257488910752736}
   - component: {fileID: 65435457986731334}
   - component: {fileID: 1330812467201420221}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fence_B_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 2, z: 2}
   m_effectScale: 14
   m_breakPoint: 30
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1655290938631246
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4034354574572894}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fence_B_2 prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

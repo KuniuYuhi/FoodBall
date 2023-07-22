@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23046617227812976}
   - component: {fileID: 64451913729086936}
   - component: {fileID: 6132843036266180559}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,6 +117,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 2, z: 0}
   m_effectScale: 20
   m_breakPoint: 50
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1721629799280222
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4588435873696250}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Wall 1 prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

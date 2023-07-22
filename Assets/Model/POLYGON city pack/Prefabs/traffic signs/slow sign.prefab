@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23006496551313348}
   - component: {fileID: 64104553767319442}
   - component: {fileID: 2094346199466243855}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: sign cycle form
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,9 @@ MonoBehaviour:
   m_effectOffset: {x: 1, y: 2, z: 0}
   m_effectScale: 14
   m_breakPoint: 10
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1201648726764622
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4231694335750506}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: slow sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}

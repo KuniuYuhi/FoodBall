@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23950133359724760}
   - component: {fileID: 64437297842944316}
   - component: {fileID: 9017966094420526527}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: traffic_obj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 3, z: 0}
   m_effectScale: 14
   m_breakPoint: 20
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1902530880653180
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4540667670795376}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: traffic_obj prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

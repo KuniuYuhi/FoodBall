@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23439234825636588}
   - component: {fileID: 64069677966965672}
   - component: {fileID: 6575145242570422408}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: stone 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,9 @@ MonoBehaviour:
   m_effectOffset: {x: 0, y: 0, z: 0}
   m_effectScale: 14
   m_breakPoint: 20
+  m_minRange: 200
+  m_maxRange: 400
+  m_volume: 18
 --- !u!1 &1721002829324540
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4757785902191534}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Stone 4 Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

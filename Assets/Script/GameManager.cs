@@ -92,6 +92,9 @@ public class GameManager : MonoBehaviour
     GameObject PauseCanvas;
 
     [SerializeField]
+    AudioClip m_finish;
+
+    [SerializeField]
     AudioSource m_bgm;
 
     public int m_volume = 8;
@@ -194,6 +197,7 @@ public class GameManager : MonoBehaviour
     {
         //BGMí‚é~
         m_bgm.Stop();
+        PlaySE(m_finish);
 
         m_gameState = GameState.enGameMode_End;
         EndCanvas.SetActive(true);
@@ -208,7 +212,7 @@ public class GameManager : MonoBehaviour
         // éÊìæ
         // Ç‹Ç∏ÇÕÉvÉåÉCÉÑÅ[
         actorDatas[0].actorCharacter = GameData.ActorCharacter.enActorCharacter_Sheep;
-        actorDatas[0].Score = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>()
+        actorDatas[0].Score = GameObject.FindGameObjectWithTag("BallPlayer").GetComponent<Player>()
             .GetEatFoods();
         // ÇªÇµÇƒìG
         for(int i = 0; i < enemys.Length; i++)
